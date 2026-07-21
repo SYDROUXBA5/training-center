@@ -121,6 +121,19 @@
     transition:border-color .15s,color .15s;
   }
   .resetbtn:hover{border-color:var(--bad);color:var(--bad);}
+  .xferbtn{margin-top:22px;margin-bottom:8px;}
+  .xferbtn:hover{border-color:var(--acc);color:var(--acc);}
+  .xferbox{width:100%;min-height:96px;resize:vertical;font-family:var(--mono);font-size:11px;line-height:1.5;
+    color:var(--soft);background:var(--panel2);border:1px solid var(--line2);border-radius:10px;padding:11px 13px;
+    word-break:break-all;margin-bottom:12px;}
+  .xferbox:focus{outline:none;border-color:var(--acc);}
+  .xfertabs{display:flex;gap:2px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:3px;margin-bottom:16px;}
+  .xfertabs button{flex:1;font:inherit;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted);
+    background:transparent;border:none;border-radius:8px;padding:8px;transition:background .15s,color .15s;}
+  .xfertabs button.on{background:var(--grad);color:var(--acc-ink);}
+  .xfermsg{font-size:12.5px;color:var(--muted);margin:2px 0 12px;line-height:1.5;min-height:16px;}
+  .xfermsg.ok{color:var(--good);}
+  .xfermsg.bad{color:var(--bad);}
 
   /* ================= XP / STREAK ================= */
   .xprow{display:flex;align-items:center;gap:8px;justify-content:space-between;}
@@ -570,6 +583,7 @@
     </div>
     <nav id="nav"></nav>
     <div class="navsep"></div>
+    <button class="resetbtn xferbtn" id="xferbtn">⇄ Transfer progress</button>
     <button class="resetbtn" id="resetbtn">Reset all progress</button>
   </aside>
   <main id="main"></main>
@@ -1910,6 +1924,81 @@ $("#resetbtn").onclick = ()=>{
     renderNav(); showTopic(current);
   }
 };
+
+/* ============================================================
+   PROGRESS TRANSFER — move a profile between devices with a
+   copy-paste code. No account, no server.
+   ============================================================ */
+function encodeProgress(){
+  const me = REG.list.find(p=>p.id===PID) || {name:"Profile", emoji:"🐕"};
+  const payload = {v:1, name:me.name, emoji:me.emoji, state:state};
+  return "TC1:" + btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+}
+function decodeProgress(code){
+  code = (code||"").trim();
+  if(code.slice(0,4) !== "TC1:") return null;
+  try{
+    const obj = JSON.parse(decodeURIComponent(escape(atob(code.slice(4)))));
+    if(!obj || !obj.state || typeof obj.state !== "object" || !obj.state.q) return null;
+    return obj;
+  }catch(e){ return null; }
+}
+function progressSummary(st){
+  const xp = (st.xp && st.xp.p) || 0;
+  const mastered = Object.values(st.q || {}).filter(v=>v && v.k >= 2).length;
+  return "Level " + levelOf(xp) + " · " + mastered + " of " + TOTAL_Q + " mastered";
+}
+function openTransferModal(){
+  openModal(
+    '<h3>Transfer progress</h3>'+
+    '<p>Move this profile between devices — laptop to phone, or into the standalone apps — with a code. No account needed.</p>'+
+    '<div class="xfertabs"><button data-tab="out" class="on">Copy this device</button><button data-tab="in">Paste a code</button></div>'+
+    '<div id="xfer-out">'+
+      '<textarea class="xferbox" id="xfercode" readonly></textarea>'+
+      '<button class="btn" id="xfercopy" style="width:100%">Copy code</button>'+
+    '</div>'+
+    '<div id="xfer-in" style="display:none">'+
+      '<textarea class="xferbox" id="xferin" placeholder="Paste a transfer code from another device…"></textarea>'+
+      '<div class="xfermsg" id="xfermsg"></div>'+
+      '<button class="btn" id="xferload" style="width:100%" disabled>Load into this profile</button>'+
+    '</div>'+
+    '<button class="mcancel" id="xferclose">Close</button>',
+  ()=>{
+    $("#xfercode").value = encodeProgress();
+    const tabs = $("#modal").querySelectorAll(".xfertabs button");
+    tabs.forEach(b=> b.onclick = ()=>{
+      tabs.forEach(x=>x.classList.remove("on")); b.classList.add("on");
+      $("#xfer-out").style.display = b.dataset.tab==="out" ? "" : "none";
+      $("#xfer-in").style.display  = b.dataset.tab==="in"  ? "" : "none";
+    });
+    $("#xfercopy").onclick = ()=>{
+      const ta = $("#xfercode"); ta.select(); ta.setSelectionRange(0, 99999);
+      const done = ()=> toast("Code copied 📋", null, 1800);
+      if(navigator.clipboard) navigator.clipboard.writeText(ta.value).then(done, ()=>{ document.execCommand("copy"); done(); });
+      else { document.execCommand("copy"); done(); }
+    };
+    let pending = null;
+    $("#xferin").oninput = ()=>{
+      const raw = $("#xferin").value.trim();
+      const msg = $("#xfermsg"), btn = $("#xferload");
+      if(!raw){ msg.className="xfermsg"; msg.textContent=""; pending=null; btn.disabled=true; return; }
+      const dec = decodeProgress(raw);
+      if(dec){ pending=dec; msg.className="xfermsg ok"; msg.textContent="Valid code — "+esc(dec.name)+": "+progressSummary(dec.state); btn.disabled=false; }
+      else { pending=null; msg.className="xfermsg bad"; msg.textContent="That doesn't look like a valid transfer code."; btn.disabled=true; }
+    };
+    $("#xferload").onclick = ()=>{
+      if(!pending) return;
+      if(!confirm("Load this progress into the current profile?\n\nIt replaces this device's progress for this profile. Other profiles are untouched.")) return;
+      state = Object.assign(blankState(), pending.state);
+      save(); closeModal();
+      if(duePool().length){ current="__due"; showDueIntro(); } else { current=TOPICS[0].id; showTopic(current); }
+      renderNav();
+      toast("Progress loaded ✓", "up", 2600);
+    };
+    $("#xferclose").onclick = closeModal;
+  });
+}
+$("#xferbtn").onclick = openTransferModal;
 
 /* ============================================================
    STUDY SHEET

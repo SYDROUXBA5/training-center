@@ -431,6 +431,26 @@
   .scopesel:hover{border-color:var(--acc-line);}
   .scopesel:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px rgba(62,203,224,.15);}
 
+  /* ================= QUIZ BUILDER ================= */
+  .builder{margin:16px 0 6px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--panel);}
+  .bdeck + .bdeck{border-top:2px solid var(--line);}
+  .bdeckname{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);background:var(--panel2);padding:10px 15px;}
+  .btopic{border-top:1px solid var(--line);}
+  .brow{display:flex;align-items:center;gap:11px;padding:10px 15px;font-size:14.5px;color:var(--text);}
+  .brow.btop{cursor:pointer;}
+  .brow.btop:hover{background:var(--panel2);}
+  .bcaret{flex:none;width:16px;text-align:center;color:var(--muted);font-size:10px;transition:transform .15s;background:none;border:none;cursor:pointer;padding:0;}
+  .btopic.open .bcaret{transform:rotate(90deg);}
+  .brow input[type=checkbox]{width:17px;height:17px;flex:none;accent-color:var(--acc);cursor:pointer;}
+  .btop .bname{font-weight:600;}
+  .bname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .bcount{font-family:var(--mono);font-size:11px;color:var(--faint);flex:none;}
+  .bsecs{display:none;background:var(--bg);}
+  .btopic.open .bsecs{display:block;}
+  .brow.bsec{padding-left:44px;color:var(--soft);font-size:13.5px;cursor:pointer;border-top:1px solid var(--line);}
+  .brow.bsec:hover{background:var(--panel);}
+  .builderbar{position:sticky;bottom:0;background:linear-gradient(180deg,transparent,var(--bg) 40%);padding-top:14px;}
+
   /* ================= DIFFICULTY ================= */
   .diffrow{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin:20px 0 2px;}
   .difflabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);}
@@ -1160,8 +1180,40 @@ const DRILL_SIZE = 12;
 
 // Stable id per question so per-question stats survive across sessions and
 // carry through mixed/drill/retry copies of the same question.
-TOPICS.forEach(t => t.questions.forEach((q,i) => { q.qid = t.id + "#" + i; }));
+/* Sub-section label for every question, in order — lets the custom quiz
+   builder mix and match sub-parts within a topic. One label per question. */
+const SECTIONS = {
+  foundations:["What trainers understand","What trainers understand","Classical conditioning","Classical conditioning","Classical conditioning","Classical conditioning","Classical conditioning","Classical conditioning","What trainers understand","Classical conditioning","What trainers understand"],
+  operant:["Operant basics","Operant basics","Operant basics","The four quadrants","The four quadrants","The four quadrants","The four quadrants","The four quadrants","The four quadrants","The four quadrants","The four quadrants","The four quadrants"],
+  reinforcers:["Primary vs. secondary","Primary vs. secondary","Primary vs. secondary","Primary vs. secondary","Primary vs. secondary","Primary vs. secondary","Positive & negative","Positive & negative","Rules for reinforcement","Rules for reinforcement","Rules for reinforcement","Rules for reinforcement"],
+  punishment:["Types of punishment","Types of punishment","Rules for punishment","Rules for punishment","Rules for punishment","Rules for punishment","Learned helplessness","Learned helplessness","Learned helplessness","Learned helplessness","Learned helplessness","Rules for punishment"],
+  schedules:["Duration & ratio basics","Duration & ratio basics","Duration & ratio basics","Duration & ratio basics","Duration & ratio basics","Duration & ratio basics","Continuous reinforcement","Continuous reinforcement","Continuous reinforcement","FR vs. VR","FR vs. VR","FR vs. VR"],
+  clicker:["Tool & history","Tool & history","Tool & history","Tool & history","The Sᴰ signal","The Sᴰ signal","The Sᴰ signal","The Sᴰ signal","Pure vs. assisted","Pure vs. assisted","Pure vs. assisted","Pure vs. assisted"],
+  charging:["Finding motivators","Finding motivators","Finding motivators","Finding motivators","Charging the clicker","Charging the clicker","Charging the clicker","Charging the clicker","Charging the clicker","Charging the clicker"],
+  shaping:["Successive approximations","Successive approximations","Successive approximations","Successive approximations","Training games","Training games","Training games","Training games","Training games"],
+  constraints:["Instinctive drift","Instinctive drift","Instinctive drift","Instinctive drift","Taste aversion","Taste aversion","Taste aversion","Taste aversion","Taste aversion","Taste aversion","Taste aversion"],
+  choosing:["Breed & lifestyle","Sourcing & age","Sourcing & age","Breed & lifestyle","Breeders & red flags","Breeders & red flags","Littermate syndrome","Littermate syndrome","Breed & lifestyle","Breed & lifestyle","Breeders & red flags"],
+  prep:["Proofing & supplies","Proofing & supplies","Proofing & supplies","Proofing & supplies","Feeding & water","Feeding & water","Feeding & water","Feeding & water","Feeding & water","Proofing & supplies","Feeding & water"],
+  health:["Vaccinations & titer","Vaccinations & titer","Vaccinations & titer","Vaccinations & titer","Vaccinations & titer","Parvo & vet visits","Parvo & vet visits","Vaccinations & titer","Vaccinations & titer","Parvo & vet visits"],
+  spayneuter:["Health & lifespan","Intact-dog behavior","Health & lifespan","What it won't change","What it won't change","Health & lifespan","Intact-dog behavior","Health & lifespan","Activities for altered dogs","Health & lifespan","Intact-dog behavior"],
+  socialization:["What socialization is","What socialization is","What socialization is","Dog-to-dog","Dog-to-dog","Dog-to-dog","People & environments","People & environments","What socialization is","Dog-to-dog","People & environments"],
+  crate:["Purpose, use & types","Size & location","Size & location","Size & location","Size & location","Purpose, use & types","Purpose, use & types","Purpose, use & types","Purpose, use & types","Purpose, use & types","Purpose, use & types"],
+  housetrain:["Timing & schedule","Timing & schedule","Timing & schedule","Timing & schedule","Training outside & cleanup","Training outside & cleanup","Training outside & cleanup","Training outside & cleanup","Methods & signals","Methods & signals","Methods & signals","Methods & signals"],
+  problems:["Coprophagia","Coprophagia","Involuntary urination","Diarrhea & diet","Diarrhea & diet","Hard cases & medical","Hard cases & medical","Hard cases & medical","Hard cases & medical","Hard cases & medical","Involuntary urination"],
+  behavior:["Grooming, cars & training","Grooming, cars & training","Grooming, cars & training","Grooming, cars & training","Mouthing & biting","Mouthing & biting","Chewing & leave it","Chewing & leave it","Adolescence & separation anxiety","Adolescence & separation anxiety","Adolescence & separation anxiety","Grooming, cars & training"],
+  servicedog:["Certification myth","The two legal questions","The two legal questions","Certification myth","Certification myth","The two legal questions","The two legal questions"]
+};
+TOPICS.forEach(t => t.questions.forEach((q,i) => {
+  q.qid = t.id + "#" + i;
+  q.sec = (SECTIONS[t.id] && SECTIONS[t.id][i]) || t.title;
+}));
 const TOTAL_Q = TOPICS.reduce((n,t) => n + t.questions.length, 0);
+// Ordered unique sub-sections of a topic, with a question count each.
+function topicSections(t){
+  const order = [], count = {};
+  t.questions.forEach(q=>{ if(!(q.sec in count)){ order.push(q.sec); count[q.sec]=0; } count[q.sec]++; });
+  return order.map(s=>({name:s, n:count[s]}));
+}
 
 /* ============================================================
    SPACED REVIEW / EXAM CONSTANTS
@@ -1303,7 +1355,8 @@ function blankState(){
     best:{}, seen:{}, q:{},
     scope:{mixed:"__all", drill:"__all", exam:"__all"},
     xp:{p:0, day:null, streak:0, best:0, hist:[]},
-    diff:"medium"
+    diff:"medium",
+    customSel:{}
   };
 }
 function load(id){
@@ -1319,6 +1372,7 @@ function load(id){
   if(!s.scope) s.scope = d.scope;
   if(!s.xp) s.xp = d.xp;
   if(!s.diff) s.diff = d.diff;
+  if(!s.customSel) s.customSel = d.customSel;
   return s;
 }
 function save(){
@@ -1816,6 +1870,15 @@ function renderNav(){
   mx.onclick = ()=>{ current="__mixed"; showMixedIntro(); closeMenu(); };
   nav.appendChild(mx);
 
+  const csel = customCount();
+  const cb = document.createElement("button");
+  cb.className = "navbtn" + (current==="__custom" ? " active":"");
+  cb.innerHTML =
+    '<div class="row"><span class="t">🧩 Build a quiz</span>'+
+    '<span class="sc">'+(csel? csel+" picked" : "custom")+'</span></div>';
+  cb.onclick = ()=>{ current="__custom"; showBuilder(); closeMenu(); };
+  nav.appendChild(cb);
+
   navLabel("Progress");
   const oc0 = weakCounts();
   const mapb = document.createElement("button");
@@ -1949,6 +2012,111 @@ function showMixedIntro(){
   $("#mixscope").onchange = e=>{ state.scope.mixed = e.target.value; save(); showMixedIntro(); };
   $("#startmixed").onclick = ()=> startQuiz(drawMixed(scope), bkey, "Mixed review"+(scope==="__all"?"":" · "+label));
   wireDiff(showMixedIntro);
+  renderNav();
+  window.scrollTo(0,0);
+}
+
+/* ============================================================
+   CUSTOM QUIZ BUILDER — tick whole topics or individual
+   sub-sections across both decks and mix them into one quiz.
+   ============================================================ */
+function selKey(tid, sec){ return tid + "||" + sec; }
+function customCount(){
+  const sel = state.customSel || {};
+  let n = 0;
+  TOPICS.forEach(t => t.questions.forEach(q=>{ if(sel[selKey(t.id, q.sec)]) n++; }));
+  return n;
+}
+function buildCustomPool(){
+  const sel = state.customSel || {};
+  const pool = [];
+  TOPICS.forEach(t => t.questions.forEach(q=>{ if(sel[selKey(t.id, q.sec)]) pool.push(Object.assign({}, q, {_topic:t.title})); }));
+  return shuffle(pool);
+}
+
+function showBuilder(){
+  stopExamTimer();
+  current = "__custom";
+  const sel = state.customSel || (state.customSel = {});
+  let html =
+    '<div class="kicker">Build a quiz</div>'+
+    '<h1>🧩 Build your own quiz</h1>'+
+    '<p class="summary">Tick whole topics — or expand any topic and tick just the sub-sections you want — from either deck, and mix them into one custom quiz. Your selection is remembered.</p>'+
+    '<div class="builder">';
+  DECKS.forEach(dk=>{
+    const group = TOPICS.filter(t=>t.deck===dk.key);
+    if(!group.length) return;
+    html += '<div class="bdeck"><div class="bdeckname">'+esc(dk.name)+'</div>';
+    group.forEach(t=>{
+      const secs = topicSections(t);
+      const someOn = secs.some(s=> sel[selKey(t.id,s.name)]);
+      html += '<div class="btopic" data-topic="'+t.id+'">'+
+        '<div class="brow btop">'+
+          '<button class="bcaret" data-toggle="'+t.id+'" aria-label="Expand">▶</button>'+
+          '<input type="checkbox" class="tchk" data-t="'+t.id+'">'+
+          '<span class="bname" data-toggle="'+t.id+'">'+esc(SHORT[t.id]||t.title)+'</span>'+
+          '<span class="bcount">'+t.questions.length+' q</span>'+
+        '</div>'+
+        '<div class="bsecs">'+
+          secs.map(s=>
+            '<label class="brow bsec"><input type="checkbox" class="schk" data-t="'+t.id+'" data-s="'+esc(s.name).replace(/"/g,"&quot;")+'"'+(sel[selKey(t.id,s.name)]?" checked":"")+'>'+
+            '<span class="bname">'+esc(s.name)+'</span><span class="bcount">'+s.n+'</span></label>'
+          ).join("")+
+        '</div>'+
+      '</div>';
+      if(someOn){ /* topic starts expanded if it has selections */ }
+    });
+    html += '</div>';
+  });
+  html += '</div>'+
+    diffRow()+
+    '<div class="btnrow builderbar">'+
+      '<button class="btn" id="startcustom">Start custom quiz · <span id="bselcount">0</span> questions</button>'+
+      '<button class="btn ghost" id="bclear">Clear selection</button>'+
+    '</div>';
+  main.innerHTML = html;
+
+  // reflect the topic-level checkbox state (checked / indeterminate / empty)
+  function syncTopic(tid){
+    const secs = topicSections(TOPICS.find(t=>t.id===tid));
+    const on = secs.filter(s=> sel[selKey(tid,s.name)]).length;
+    const box = main.querySelector('.tchk[data-t="'+tid+'"]');
+    box.checked = on === secs.length && on > 0;
+    box.indeterminate = on > 0 && on < secs.length;
+    // open the section list if partially/fully selected
+    if(on > 0) main.querySelector('.btopic[data-topic="'+tid+'"]').classList.add("open");
+  }
+  function refresh(){
+    const n = customCount();
+    $("#bselcount").textContent = n;
+    $("#startcustom").disabled = n === 0;
+  }
+  TOPICS.forEach(t=> syncTopic(t.id));
+  refresh();
+
+  // expand / collapse
+  main.querySelectorAll("[data-toggle]").forEach(el=> el.onclick = e=>{
+    e.preventDefault();
+    main.querySelector('.btopic[data-topic="'+el.dataset.toggle+'"]').classList.toggle("open");
+  });
+  // section checkbox
+  main.querySelectorAll(".schk").forEach(cb=> cb.onchange = ()=>{
+    const k = selKey(cb.dataset.t, cb.dataset.s);
+    if(cb.checked) sel[k] = true; else delete sel[k];
+    save(); syncTopic(cb.dataset.t); refresh(); renderNav();
+  });
+  // topic checkbox → select / clear all its sections
+  main.querySelectorAll(".tchk").forEach(cb=> cb.onchange = ()=>{
+    const tid = cb.dataset.t;
+    const secs = topicSections(TOPICS.find(t=>t.id===tid));
+    secs.forEach(s=>{ const k=selKey(tid,s.name); if(cb.checked) sel[k]=true; else delete sel[k]; });
+    main.querySelectorAll('.schk[data-t="'+tid+'"]').forEach(x=> x.checked = cb.checked);
+    save(); syncTopic(tid); refresh(); renderNav();
+  });
+
+  $("#startcustom").onclick = ()=>{ if(customCount()) startQuiz(buildCustomPool(), "__custom", "Custom quiz", true); };
+  $("#bclear").onclick = ()=>{ state.customSel = {}; save(); showBuilder(); };
+  wireDiff(showBuilder);
   renderNav();
   window.scrollTo(0,0);
 }
@@ -2597,11 +2765,13 @@ function showResult(){
   if($("#again")) $("#again").onclick = ()=>{
     if(id.startsWith("__mixed")) startQuiz(drawMixed(scopeOf(id)), id, title);
     else if(id.startsWith("__drill")) startQuiz(weakPool(scopeOf(id)), id, title, true);
+    else if(id==="__custom") startQuiz(buildCustomPool(), id, title, true);
     else startQuiz(qsCopy, id, title);
   };
   $("#back").onclick = ()=>
     id.startsWith("__mixed") ? showMixedIntro() :
     id.startsWith("__drill") ? showDrillIntro() :
+    id==="__custom" ? showBuilder() :
     id==="__due" ? showDueIntro() : showTopic(id);
   renderNav();
   window.scrollTo(0,0);

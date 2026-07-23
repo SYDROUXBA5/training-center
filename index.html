@@ -346,6 +346,46 @@
     margin-top:30px;padding-top:16px;border-top:1px solid var(--line);letter-spacing:.02em;
   }
 
+  /* ============ STUDY — every slide on one scrolling page ============ */
+  .study{max-width:820px;}
+  .studyhero{padding-bottom:4px;}
+  .studyhero .summary{margin-bottom:0;}
+  .deckband{margin:52px 0 6px;padding-top:24px;border-top:1px solid var(--line2);}
+  .study .deckband:first-of-type{margin-top:26px;}
+  .deckband .dk{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--acc);font-weight:600;margin-bottom:9px;
+  }
+  .deckband h3{
+    font-family:var(--serif);font-size:clamp(23px,3.3vw,29px);font-weight:700;
+    letter-spacing:-.015em;margin:0;line-height:1.1;
+  }
+  .deckband .dmeta{
+    font-family:var(--mono);font-size:11px;color:var(--faint);
+    margin-top:9px;letter-spacing:.03em;
+  }
+  .studysec{scroll-margin-top:22px;padding:32px 0 30px;border-top:1px solid var(--line);}
+  .deckband + .studysec{border-top:none;padding-top:20px;}
+  .seckicker{
+    font-family:var(--mono);color:var(--muted);font-size:10.5px;letter-spacing:.16em;
+    text-transform:uppercase;font-weight:600;margin-bottom:10px;
+  }
+  .sectitle{
+    font-family:var(--serif);font-size:clamp(22px,2.8vw,27px);line-height:1.16;
+    font-weight:700;letter-spacing:-.015em;margin:0 0 13px;
+  }
+  .studysec .summary{font-size:16px;margin:0 0 20px;}
+  .slabel{
+    font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;margin:24px 0 12px;
+  }
+  .secfoot{
+    display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+    margin-top:24px;padding-top:15px;border-top:1px dashed var(--line);
+  }
+  .secfoot .srcs{margin:0;padding:0;border:none;}
+  .btn.ghost.sm{padding:8px 15px;font-size:12.5px;border-radius:10px;}
+
   .btn{
     display:inline-block;cursor:pointer;font:inherit;font-weight:700;letter-spacing:.005em;
     background:linear-gradient(180deg,#4bd4e8,#2eb2c8);color:var(--acc-ink);
@@ -1639,8 +1679,7 @@ function enterProfile(id){
   REG.last = id; saveReg();
   document.body.classList.remove("noprofile");
   pfChip();
-  if(duePool().length){ current = "__due"; showDueIntro(); }
-  else showTopic(TOPICS[0].id);
+  showStudy();
 }
 
 function showProfiles(){
@@ -1828,11 +1867,12 @@ function renderNav(){
       const btn = document.createElement("button");
       btn.className = "navbtn" + (current===t.id ? " active":"");
       btn.title = t.title;
+      btn.dataset.id = t.id;
       btn.innerHTML =
         '<div class="row"><span class="t">'+esc(SHORT[t.id] || t.title)+'</span>'+
         '<span class="sc">'+(started? tm.m+"/"+total+" ✓" : total+" q")+'</span></div>'+
         '<div class="bar"><i class="'+(p===100?"full":"")+'" style="width:'+p+'%"></i></div>';
-      btn.onclick = ()=>{ current=t.id; showTopic(t.id); closeMenu(); };
+      btn.onclick = ()=> goStudy(t.id);
       nav.appendChild(btn);
     });
   });
@@ -1921,7 +1961,7 @@ $("#resetbtn").onclick = ()=>{
   if(confirm("Reset all progress for "+(me ? me.name : "this profile")+"?\n\nMastery, review schedule, XP and streak will be cleared. Other profiles are not affected.")){
     state = blankState(); save();
     current = TOPICS[0].id;
-    renderNav(); showTopic(current);
+    showStudy();
   }
 };
 
@@ -1991,8 +2031,7 @@ function openTransferModal(){
       if(!confirm("Load this progress into the current profile?\n\nIt replaces this device's progress for this profile. Other profiles are untouched.")) return;
       state = Object.assign(blankState(), pending.state);
       save(); closeModal();
-      if(duePool().length){ current="__due"; showDueIntro(); } else { current=TOPICS[0].id; showTopic(current); }
-      renderNav();
+      showStudy();
       toast("Progress loaded ✓", "up", 2600);
     };
     $("#xferclose").onclick = closeModal;
@@ -2004,6 +2043,120 @@ $("#xferbtn").onclick = openTransferModal;
    STUDY SHEET
    ============================================================ */
 let current = TOPICS[0].id;
+
+/* ============================================================
+   STUDY — every slide on one scrolling page. The sidebar acts as
+   a table of contents; scrolling spies and highlights the topic
+   you're reading. Each card is the slide recreated verbatim.
+   ============================================================ */
+const prefersReduce = ()=> matchMedia("(prefers-reduced-motion: reduce)").matches;
+let spyObserver = null;
+
+function studyHTML(){
+  let h = '<div id="studywrap" class="study">'+
+    '<header class="studyhero">'+
+      '<div class="kicker">Study · every slide</div>'+
+      '<h1>The Training Center</h1>'+
+      '<p class="summary">Both decks, every slide, on one page. Pick a topic on the left to jump straight to it — or just scroll. Each card below is the slide recreated word-for-word, with its key points above.</p>'+
+    '</header>';
+  DECKS.forEach(dk=>{
+    const group = TOPICS.filter(t=>t.deck===dk.key);
+    if(!group.length) return;
+    const slides = group.reduce((n,t)=>n+((t.sources&&t.sources.length)||0),0);
+    h += '<div class="deckband" id="deck-'+dk.key+'">'+
+      '<div class="dk">Deck</div>'+
+      '<h3>'+esc(dk.name)+'</h3>'+
+      '<div class="dmeta">'+group.length+' topics · '+slides+' slides</div>'+
+    '</div>';
+    group.forEach((t,i)=>{
+      h += '<section class="studysec" id="sec-'+t.id+'" data-id="'+t.id+'">'+
+        '<div class="seckicker">'+esc(dk.name)+' · Topic '+(i+1)+' of '+group.length+'</div>'+
+        '<div class="sectitle">'+esc(t.title)+'</div>'+
+        '<p class="summary">'+esc(t.summary)+'</p>'+
+        '<div class="slabel">Key points</div>'+
+        '<ul class="points">'+t.points.map(p=>'<li>'+esc(p)+'</li>').join("")+'</ul>';
+      if(t.verbatim && t.verbatim.length){
+        h += '<div class="slabel">From the slide, verbatim</div>';
+        t.verbatim.forEach(v=>{
+          h += '<div class="verbatim"><div class="vt">'+esc(v.t)+'</div><pre>'+esc(v.body)+'</pre></div>';
+        });
+      }
+      if(t.note) h += '<div class="note">'+esc(t.note)+'</div>';
+      h += '<div class="secfoot">'+
+        '<span class="srcs">Slides: '+t.sources.map(esc).join(" · ")+'</span>'+
+        '<button class="btn ghost sm" data-quiz="'+t.id+'">Practice · '+t.questions.length+' q</button>'+
+      '</div>'+
+      '</section>';
+    });
+  });
+  h += '</div>';
+  return h;
+}
+
+function showStudy(scrollToId){
+  main.innerHTML = studyHTML();
+  main.querySelectorAll("[data-quiz]").forEach(b=>{
+    b.onclick = ()=>{ const t=TOPICS.find(x=>x.id===b.dataset.quiz); if(t) startQuiz(t.questions,t.id,t.title); };
+  });
+  initSpy();
+  renderNav();
+  const target = (scrollToId && document.getElementById("sec-"+scrollToId)) ? scrollToId : TOPICS[0].id;
+  if(scrollToId && document.getElementById("sec-"+scrollToId)){
+    document.getElementById("sec-"+scrollToId).scrollIntoView({block:"start"});
+  } else {
+    window.scrollTo(0,0);
+  }
+  setActiveNav(target);
+}
+
+function ensureStudy(){ if(!document.getElementById("studywrap")) showStudy(); }
+
+/* jump to a topic's slide from the sidebar / map, mounting study first if needed */
+function goStudy(id){
+  document.getElementById("aside").classList.remove("open");   // mobile: close the menu
+  const already = !!document.getElementById("studywrap");
+  ensureStudy();
+  const el = document.getElementById("sec-"+id);
+  if(el){
+    if(already) requestAnimationFrame(()=> el.scrollIntoView({behavior: prefersReduce()?"auto":"smooth", block:"start"}));
+    else el.scrollIntoView({block:"start"});
+  }
+  setActiveNav(id);
+}
+
+/* highlight one topic in the sidebar and keep it visible, WITHOUT moving the page */
+function setActiveNav(id){
+  current = id;
+  const navEl = document.getElementById("nav");
+  if(!navEl) return;
+  let act = null;
+  navEl.querySelectorAll(".navbtn[data-id]").forEach(b=>{
+    const on = b.dataset.id===id; b.classList.toggle("active", on); if(on) act = b;
+  });
+  if(act){
+    const aside = document.getElementById("aside");
+    if(aside && aside.scrollHeight > aside.clientHeight){   // only when the sidebar itself scrolls
+      const top = act.offsetTop, bot = top + act.offsetHeight;
+      if(top < aside.scrollTop + 6) aside.scrollTop = top - 6;
+      else if(bot > aside.scrollTop + aside.clientHeight - 6) aside.scrollTop = bot - aside.clientHeight + 6;
+    }
+  }
+}
+
+/* scroll-spy: mark the topic whose slide is near the top of the viewport */
+function initSpy(){
+  if(spyObserver){ spyObserver.disconnect(); spyObserver = null; }
+  const secs = Array.prototype.slice.call(document.querySelectorAll(".studysec"));
+  if(!secs.length) return;
+  spyObserver = new IntersectionObserver(function(){
+    if(!document.getElementById("studywrap")) return;   // ignore once a quiz/other view takes over
+    let best = null;
+    for(const s of secs){ if(s.getBoundingClientRect().top < 140) best = s; }  // last section past the line
+    if(!best) best = secs[0];
+    if(best && best.dataset.id !== current) setActiveNav(best.dataset.id);
+  }, {rootMargin:"-12% 0px -78% 0px", threshold:0});
+  secs.forEach(s=>spyObserver.observe(s));
+}
 
 function showTopic(id){
   current = id;
@@ -2509,7 +2662,7 @@ function showMap(){
   const endDrag = e=>{
     if(drag && !drag.moved){
       const p = pick(e);
-      if(p){ current = p.n.tid; showTopic(p.n.tid); return; }   // click a star → open its topic
+      if(p){ goStudy(p.n.tid); return; }   // click a star → jump to its slide
     }
     drag = null; cv.classList.remove("grabbing");
   };
@@ -2861,7 +3014,7 @@ function showResult(){
     id.startsWith("__mixed") ? showMixedIntro() :
     id.startsWith("__drill") ? showDrillIntro() :
     id==="__custom" ? showBuilder() :
-    id==="__due" ? showDueIntro() : showTopic(id);
+    id==="__due" ? showDueIntro() : goStudy(id);
   renderNav();
   window.scrollTo(0,0);
 }

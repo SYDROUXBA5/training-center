@@ -2052,6 +2052,78 @@ let current = TOPICS[0].id;
 const prefersReduce = ()=> matchMedia("(prefers-reduced-motion: reduce)").matches;
 let spyObserver = null;
 
+/* Every slide of both decks, recreated verbatim from the transcripts.
+   Keyed by the exact source string in each topic's `sources`. Content
+   comes ONLY from the slide photos — nothing invented. Pure section-title
+   slides (3793/3794) and duplicate shots (3829/3839) are intentionally omitted. */
+const SLIDES = {
+  "IMG_3617 2.HEIC":{t:"Effective Dog Trainers Understand",body:"How Dogs Learn\n\nLearning theory\n    Punishment vs. Reinforcement\n    Motivation\n\nDogs' capabilities and limitations\n\nSuccessive Approximations\n\nNature vs. Nurture\n\nClassical and Operant Conditioning\n\nTiming and Pacing"},
+  "IMG_3618 2.HEIC":{t:"Classical Conditioning",body:"“Appetite, craving for food, is a constant and powerful stimulator of the gastric glands.”\n— Ivan Pavlov\n\nClassical conditioning is often also referred to as Pavlovian conditioning. It is a type of learning through association and was discovered by Ivan Pavlov, a Russian physiologist.\n\nAlso called respondent conditioning: two stimuli are linked together to produce a new learned response in a person or animal."},
+  "IMG_3619 2.HEIC":{t:"Operant Conditioning",body:"“The consequences of behavior determine the probability that the behavior will occur again”\n— B.F. Skinner\n\nA type of learning in which behavior is modified by consequences; association is made between a behavior and its consequence.\n\nAlso called instrumental conditioning; learning occurs through rewards and punishments for behavior."},
+  "IMG_3621 2.HEIC":{t:"Clicker Training",body:"The clicker is a tool for training using Operant Conditioning principles; positive reinforcement\n\nOriginally sold as a noisemaker in the 1940s called a “cricket”\n\nUsed in B.F. Skinner's lab and to train marine mammals\n\nKaren Pryor popularized its use in dog training"},
+  "IMG_3622 2.HEIC":{t:"Successive Approximations",body:"Breaking complex behavior into small pieces – also known as shaping\n\n- Can you physically make a dog sit?\n- Can you physically make a dog down?\n- Can you physically make a dog open the refrigerator?\n- Can you physically make a three-ton whale do anything?"},
+  "IMG_3623 2.HEIC":{t:"Primary vs. Secondary Reinforcers",body:"PRIMARY REINFORCERS — [dog believes] it cannot live without (unconditioned):\n    Food · Water · Social interaction · Play · Sex · Sleep · Freedom\n\nSECONDARY REINFORCERS — developed association (conditioned):\n    Praise · Toys · Clicker"},
+  "IMG_3629 2.HEIC":{t:"Starting With a Clicker",body:"First, figure out what motivates the dog:\n- Dry kibble\n- Cheese\n- Tennis ball\n- Tug\n\nWhich holds the highest value?\nBuild a hierarchy\n\nYou may not always want to use the highest value motivator"},
+  "IMG_3630 2.HEIC":{t:"“Charging” the Clicker",body:"Second, charge the clicker; classical conditioning:\n\nClick = Treat\n\nThe dog is not required to do anything initially\n\nNoise promises reward\n\n3-4 times per day, for 5-6 days\n\nCharge while nursing"},
+  "IMG_3631 2.HEIC":{t:"Clicker Training",body:"Clicker becomes a tool of communication\n- Clicker vs. Voice vs. Other markers?\n\nS^D = Discriminative Stimulus\n- Dogs understand S^D\n- Dogs do not speak English, etc.\n- S^D can be visual, audible, or physical\n\nDog learns to make you click\n- Clicker savvy dogs offer behaviors\n\nTiming is crucial"},
+  "IMG_3632 2.HEIC":{t:"Clicker Training Styles",body:"“PURE” CLICKER TRAINING:\n    Wait for the behavior\n    Longer retention\n    Self Discovery\n\n“ASSISTED” CLICKER TRAINING:\n    Lure or lead the dog\n    Begin with something closer to the desired goal"},
+  "IMG_3634 2.HEIC":{t:"Training Games",body:"The Training Game\n- Communication\n- Clicker\n\nThe Negative Training Game\n- Only Punishments are Allowed\n- NO!\n\nThe Combination Training Game\n- Reinforcement – Clicker\n- Punishment – NO!"},
+  "IMG_3635 2.HEIC":{t:"Components of Operant Conditioning",body:"REINFORCEMENTS:\n    Any event that strengthens or increases the behavior it follows\n    Positive Reinforcers\n    Negative Reinforcers\n\nPUNISHMENTS:\n    The presentation of an adverse event or outcome that decreases in the behavior it follows\n    Positive Punishments\n    Negative Punishments"},
+  "IMG_3636 2.HEIC":{t:"Operant Conditioning Diagram",body:"Operant Conditioning\n├─ Reinforcement — Increase Behavior\n│   ├─ Positive — Add desirable stimuli\n│   └─ Negative\n│        ├─ Escape — Remove undesirable stimuli following correct behavior\n│        └─ Avoidance — Correct behavior avoids undesirable stimuli\n└─ Punishment — Decrease Behavior\n     ├─ Positive — Add undesirable stimuli\n     └─ Negative — Remove desirable stimuli (penalty)"},
+  "IMG_3637 2.HEIC":{t:"A Quick Caution",body:"Operant Conditioning & Training Tools\n\nDo NOT make associations between quadrants of Operant Conditioning and certain training tools or devices."},
+  "IMG_3638 2.HEIC":{t:"Terminology",body:"+ Positive:  Addition or Presence of stimulus\n– Negative:  Removal or Absence of stimulus\nR Reinforcement:  Increases behavior\nP Punishment:  Decreases behavior\nEscape:  Removes a stimulus\nAvoidance:  Prevents a stimulus"},
+  "IMG_3639 2.HEIC":{t:"Reinforcements",body:"Positive Reinforcers: favorable events or outcomes presented after behavior\n- Response or behavior is strengthened by the addition of something considered pleasant\n\nNegative Reinforcers: removal of unfavorable events or outcomes after behavior\n- Response is strengthened by the removal of something considered unpleasant."},
+  "IMG_3640 2.HEIC":{t:"Positive Reinforcement",body:"Must be rewarding to the dog\n- Food\n- Toys\n\nBeware of self-rewarding reinforcements in the environment\n\nMust be timely\n- Attached to the behavior you want\n- Use of secondary reinforcers extends time"},
+  "IMG_3658.HEIC":{t:"Schedules of Reinforcement",body:"Analysis of behavior involves the effects of a schedule of reinforcement over time\n\nSkinner's notable schedules of reinforcement:\n\nDuration\n- Fixed; presented at fixed time periods, after dog has performed the behavior.\n- Variable; Response is rewarded after the behavior has been performed for an unpredictable amount of time\n\nRatio\n- Fixed; Reinforcement is delivered after a specific number of responses\n- Variable; Response is reinforced after an unpredictable number of responses"},
+  "IMG_3659.HEIC":{t:"Continuous Reinforcement",body:"Constant delivery of reinforcement for an action\n\nEvery time a specific action is performed the subject instantly receives a reinforcement.\n\nImpractical to use consistently\nBehavior is prone to extinction\n\nUnpredictability in reinforcement = Greater predictability in behavior"},
+  "IMG_3660.HEIC":{t:"Ratio Schedules – Variable",body:"Based on the ratio of responses to reinforcements\n\nFixed Ratio Schedule (FR)\n- Produces a high, steady rate of response with only a brief pause after the delivery of the reinforcement\n\nVariable Ratio Schedule (VR)\n- Creates a high, steady rate of responding\n\nVR produce slightly higher rates of responding than FR; organism doesn't know when next reinforcement is\nThe higher the ratio, the higher the response"},
+  "IMG_3661.HEIC":{t:"Punishments",body:"Positive Punishment: the presentation of an unfavorable event or outcome in order to weaken the response it follows\n\nNegative Punishment: occurs when a favorable event or outcome is removed after a behavior occurs"},
+  "IMG_3662.HEIC":{t:"Punishments — The Three Conditions",body:"Must be appropriate\n- Minimum punishment required to create desired change in behavior\n\nMust be timely\n- Attached to the misbehavior\n- Delayed punishment is ineffective\n\nMust be consistent\n- If you can't do it every time; best not do it at all\n- Beware of self-rewarding behaviors\n\nSecondary Punishments\n- Warning tone; beep\n- Verbal “Uh uh” or “No”"},
+  "IMG_3664.HEIC":{t:"Learned Helplessness",body:"Dog believes it has no control over its environment\n\n“No matter what I do, I'm wrong.”\n\nResignation\n\nFrequently brought about by use of excessive punishment\n\nMay lead to escape, avoidance, aggression, or other negative responses"},
+  "IMG_3665.HEIC":{t:"Instinctive Drift",body:"Innate traits or behaviors that distracts the dog from learning:\n\n- Chasing a squirrel\n- Digging\n- Swimming\n- Sniffing the ground"},
+  "IMG_3666.HEIC":{t:"Taste Aversion Learning",body:"Animals learn about new foods by trial and error\n\nIf they get sick; they probably won't do it again\n\nDead sheep laced with lithium chloride\n- Induces powerful nausea in coyotes\n- Coyote eats sheep; becomes ill\n- Avoids sheep in the future\n\nTried with dogs to avoid coprophagia\n- Ipecac on feces\n- Ineffective; does not create necessary feelings of nausea\n\nMedical treatments"},
+
+  "IMG_3795":{t:"What Breed?",body:"- Lifestyle\n- Size / space\n- Activity Level / Mental Stimulation\n- Grooming Considerations\n\nSourcing\n- Breeders\n- Shelters"},
+  "IMG_3796":{t:"What Age?",body:"- What age is best to acquire a new pup?\n- Breeders selling early\n- Older pups?"},
+  "IMG_3797":{t:"Puppy Proofing",body:"- Stow chewable objects\n- Electrical cords\n- Cleaners / chemicals\n- Block access\n- Baby gates\n- Check at eye level"},
+  "IMG_3799":{t:"Shopping List",body:"Items for a new puppy:\n\nDog bed · Bowls · Toys / Chews · Cleaning supplies · Crate · Treats · Food · Collar and leash · Brush and comb"},
+  "IMG_3800":{t:"Feeding",body:"- Choosing a Diet — Proper nutrition is important\n- Schedule — Free feeding; Smaller meals more frequently\n- Where to feed\n- Water — Fresh water should be available until a few hours prior to bed; Water dispensers"},
+  "IMG_3801":{t:"Health Considerations",body:"- Veterinarian — Dogs should be socialized and comfortable with their vet; Visits without procedures\n- Vaccinations — DHLPP: Distemper, hepatitis, leptospirosis, parainfluenza, parvovirus; Rabies; Bordatella\n- Can you over-vaccinate? — Vaccination experts recommend blood titration"},
+  "IMG_3802":{t:"Spaying & Neutering",body:"“When is the right time?”\n\n- Health — Females spayed before their first heat eliminate odds of mammary cancer or pyometra; Neutered males are less likely to contract testicular or prostate cancer\n- Mental health — Females can become hormonal around their heat cycles; Intact male dogs are attracted to scent of female in heat from up to a mile away\n- Roaming — Dogs face hazards from traffic, other dogs, people, wildlife"},
+  "IMG_3803":{t:"Why Alter Dogs?",body:"- Household Damage — Females in season have discharge that can damage furniture, carpets, rugs (Can last up to three weeks, twice a year); Males may begin to scent mark indoors; urinating on couches, refrigerators, walls, and other items\n- Expense — Puppies are expensive to raise; Spayed or neutered dogs are less expensive to license"},
+  "IMG_3804":{t:"Why Alter Dogs? (continued)",body:"- Lifespan — Spayed and neutered dogs live, on average, 1.5 years longer than intact dogs\n- What it won't affect — Dominant behavior; Overall Temperament; Aggression"},
+  "IMG_3806":{t:"Activities for Altered Dogs",body:"AKC does not allow spayed and neutered dogs to participate in dog shows (confirmation); sports they can participate in include:\n\nAgility · Obedience · Tracking · Carting or sled pulling · Water sports · Schutzhund · Lure coursing · Earthdog"},
+  "IMG_3807":{t:"Socialization",body:"- The process of exposing dog or puppy to a wide variety of humans, objects, environments, animals, situations\n- Keep it positive\n- Keep it safe"},
+  "IMG_3808":{t:"Dog-to-Dog",body:"- Keep up-to-date on vaccinations\n- Exposure to other dogs\n- Puppy classes — Social skills; Proper play; Proper greeting\n- Shy puppies should not be forced to interact, but should be given opportunities"},
+  "IMG_3809":{t:"Dog-to-Human",body:"Dogs should be socialized to many different types of people\n- Children — Ages, sizes, mobility, ethnicity\n- Adults — Men (Bearded, mustachioed, clean-shaven); Different genders, sizes, ages, mobility, ethnicity; Elderly or invalid\n- People with idiosyncrasies"},
+  "IMG_3810":{t:"Dog-to-Environment",body:"Dogs should be socialized to many different types of environments:\n\nStairs · Elevators · Veterinarian · Pet-friendly stores · Parks · Traffic · Car rides · Animals (Other pets, Livestock)"},
+  "IMG_3813":{t:"Crate Size",body:"- Large enough so dog can lie down flat on side\n- Sit up without bumping head\n- Stand up and turn around"},
+  "IMG_3814":{t:"Crate Training — Schedule",body:"- Regular, rigid schedule; Predictable; Written schedule\n- 10 weeks old – schedule housetraining: Exercise, Play, Sleep, Potty Breaks, Leadership; behavior"},
+  "IMG_3815":{t:"Crate Training — What a Crate Is",body:"- Crate — Enclosure with four sides, a top, and a floor\n- Transport\n- Serves as a house or den\n- Protects puppy\n- Prevents puppy from: Damaging house; Reduce anxiety; Housetrain"},
+  "IMG_3816":{t:"Crate Location",body:"- Quiet corner of a room\n- Room where family spends most time\n- Puppy or dog should be able to see everyone, but out of the way"},
+  "IMG_3817":{t:"Timing & Scheduling",body:"Puppies need to eliminate:\n\nWhen they wake up · After a nap · After a meal · After taking water · After play.\n\nKeep a written schedule."},
+  "IMG_3818":{t:"Age and Size",body:"- Age determines how much control puppy has over bladder\n    - > 3 months – developing sphincter control (Excited urination)\n    - 4-6 months – gains some control\n    - Puppies may need to eliminate 8-10 times daily\n- Size matters — Small dogs have additional challenges: Small bladders; Vulnerable to cold weather, can't be out long; Can take longer to train"},
+  "IMG_3819":{t:"Observation",body:"- Keep puppies under observation\n- Avoid chewing shoes, cords\n- Avoid housebreaking accidents\n- Puppies left alone will most likely get accidental and unacceptable training"},
+  "IMG_3820":{t:"Tethering",body:"- Controversial method\n- Keeps puppy physically attached to owner\n- Anytime puppy is out of crate\n- Puppy must still be observed\n- Can be dangerous to puppy"},
+  "IMG_3821":{t:"House Training — Methods Typically NOT Recommended",body:"- Pads — Pee pads encourage pups to eliminate indoors\n- Stations — Stations, if placed indoors, also teach improper habits\n- Litter Box — Litter boxes should only be used in limited situations"},
+  "IMG_3822":{t:"Establishing Signals",body:"- Tell Bell or doorknob bells — Must be reinforced every time; Doorknob bells ring any time the door is opened\n- Dog may scratch at door\n- Sit at door\n- Go to owner > run to door"},
+  "IMG_3823":{t:"Training Outside",body:"- Location — Lead puppy to the desired location outside\n- Timing — Remain outside with the puppy after it eliminates\n- Reinforcement — Must be present to reinforce behavior\n- Cue — Choose words carefully"},
+  "IMG_3824":{t:"Cleanup",body:"- Clean up immediately\n- Use cleaners which oxidize and break down enzymes in urine\n- Avoid ammonia-based products"},
+  "IMG_3825":{t:"Dog Doors",body:"- Allows dog to choose when to go out/come in\n- During housetraining, the dog should not have access to a dog door — Cannot reinforce desired behavior\n- After housetraining owner should still watch the dog to reward successful potty breaks"},
+  "IMG_3826":{t:"Paper & Litterbox Training",body:"- Do not recommend unless going potty indoors is something owner wants to reinforce\n- Exception: people with small pets and limited mobility with difficulty accessing outdoors (Elderly; Physically disabled)"},
+  "IMG_3827":{t:"Elimination Problems",body:"- Coprophagia – eating feces — Mothers consume feces of newborn puppies to keep clean whelping area; may be a result of imitation or trial and error; Prevention: Clean up feces immediately\n- Submissive urination\n- Excited Urination — Establish positive housetraining habits"},
+  "IMG_3828":{t:"Elimination Problems — Diarrhea",body:"Can be caused by a number of factors:\n\nChanging foods abruptly · Change in diet, recipe · Excitement of a new home and family · Internal parasites · Stress · Hot dogs.\n\nClean up after pets."},
+  "IMG_3830":{t:"Potential Problems",body:"- Puppy Mill or Pet Shop dogs\n- Dogs are generally raised in overcrowded cages\n- Do not understand cleanliness\n- Have always eaten, eliminated, and slept in a filthy environment\n- Takes extra time and patience to housetrain"},
+  "IMG_3832":{t:"Difficulties",body:"- Adult dogs with housetraining troubles — Check for physical ailments: UTI; Parasites; Age – Urinary incontinence (treated with Proin); Diabetes; Bladder infection; Distended or detached urethra\n- Does not come naturally — Dogs must be taught appropriate places to relieve itself"},
+  "IMG_3833":{t:"Grooming",body:"Grooming considerations:\n\nCoat · Eyes · Ears · Nails · Teeth"},
+  "IMG_3834":{t:"Car Rides",body:"- Introduce the car without moving\n- Use approximations\n- Make rides short\n- Provide toys and other secondary reinforcers\n- Medications?"},
+  "IMG_3835":{t:"Training Puppies",body:"- Keep lessons short and fun\n- Alternate play and training\n- Reinforce positive behavior\n- Observe behaviors; reinforce those you want to keep\n- AKC S.T.A.R. Puppy — Six weeks lessons; one week testing"},
+  "IMG_3836":{t:"Mouthing & Biting",body:"- Mouthing — Dogs naturally explore their environment with their mouth; After housebreaking, continue to monitor puppy\n- Bite inhibition — Puppies learn from littermates when it is too much; Must be taught that biting people is painful; Yelp; Fold puppy's lip over teeth"},
+  "IMG_3837":{t:"Chewing",body:"- Teaching the “leave it” — Hold treat within reach; Say “leave it”, wait; When puppy stops pawing and stands still, praise and give treat\n- Chewing — Puppies need to chew; Provide proper chew toy alternatives; Keep an eye on the puppy"},
+  "IMG_3838":{t:"Adolescence",body:"- Like puppyhood, adolescence is natural and temporary\n- Expect some misbehavior"},
+  "IMG_3841":{t:"Separation Anxiety",body:"- Separation Anxiety vs. Boredom\n- Managing Separation Anxiety:\n    - Start with short breaks from the puppy\n    - Make preparations to leave while ignoring the puppy, especially if it cries and barks\n    - Step outside briefly, then come back\n    - Do not make a big deal about coming home\n    - Greet the puppy in a low-key manner\n    - Gradually extend the time away"}
+};
+
 function studyHTML(){
   let h = '<div id="studywrap" class="study">'+
     '<header class="studyhero">'+
@@ -2062,7 +2134,7 @@ function studyHTML(){
   DECKS.forEach(dk=>{
     const group = TOPICS.filter(t=>t.deck===dk.key);
     if(!group.length) return;
-    const slides = group.reduce((n,t)=>n+((t.sources&&t.sources.length)||0),0);
+    const slideSet = new Set(); group.forEach(x=>x.sources.forEach(s=>{ if(SLIDES[s]) slideSet.add(s); })); const slides = slideSet.size;
     h += '<div class="deckband" id="deck-'+dk.key+'">'+
       '<div class="dk">Deck</div>'+
       '<h3>'+esc(dk.name)+'</h3>'+
@@ -2075,15 +2147,17 @@ function studyHTML(){
         '<p class="summary">'+esc(t.summary)+'</p>'+
         '<div class="slabel">Key points</div>'+
         '<ul class="points">'+t.points.map(p=>'<li>'+esc(p)+'</li>').join("")+'</ul>';
-      if(t.verbatim && t.verbatim.length){
-        h += '<div class="slabel">From the slide, verbatim</div>';
-        t.verbatim.forEach(v=>{
+      const slideCards = t.sources.filter(s=>SLIDES[s]);
+      if(slideCards.length){
+        h += '<div class="slabel">The slides — recreated word-for-word</div>';
+        slideCards.forEach(s=>{
+          const v = SLIDES[s];
           h += '<div class="verbatim"><div class="vt">'+esc(v.t)+'</div><pre>'+esc(v.body)+'</pre></div>';
         });
       }
       if(t.note) h += '<div class="note">'+esc(t.note)+'</div>';
       h += '<div class="secfoot">'+
-        '<span class="srcs">Slides: '+t.sources.map(esc).join(" · ")+'</span>'+
+        '<span class="srcs">'+(slideCards.length? slideCards.length+' slide'+(slideCards.length===1?'':'s')+' in this topic' : 'Drawn from the lecture notes')+'</span>'+
         '<button class="btn ghost sm" data-quiz="'+t.id+'">Practice · '+t.questions.length+' q</button>'+
       '</div>'+
       '</section>';

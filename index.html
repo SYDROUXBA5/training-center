@@ -1591,8 +1591,8 @@ const FUND_TOPICS = [
 
 const TOPICS = LT_TOPICS.map(t=>Object.assign({}, t, {deck:"learning", deckName:"Learning Theory"}))
   .concat(PUP_TOPICS.map(t=>Object.assign({}, t, {deck:"puppy", deckName:"Puppies"})))
-  .concat(HDL_TOPICS.map(t=>Object.assign({}, t, {deck:"book", deckName:"How Dogs Learn"})))
-  .concat(FUND_TOPICS.map(t=>Object.assign({}, t, {deck:"fund", deckName:"Training Fundamentals"})));
+  .concat(HDL_TOPICS.map(t=>Object.assign({}, t, {deck:"book", deckName:"How Dogs Learn (Book)"})))
+  .concat(FUND_TOPICS.map(t=>Object.assign({}, t, {deck:"fund", deckName:"How Dogs Learn & Strategies to Train Them"})));
 
 const MIXED_SIZE = 20;
 const DRILL_SIZE = 12;
@@ -2242,7 +2242,7 @@ function navLabel(text){
   nav.appendChild(d);
 }
 
-const DECKS = [{key:"learning", name:"Learning Theory"}, {key:"puppy", name:"Puppies"}, {key:"book", name:"How Dogs Learn"}, {key:"fund", name:"Training Fundamentals"}];
+const DECKS = [{key:"learning", name:"Learning Theory"}, {key:"puppy", name:"Puppies"}, {key:"book", name:"How Dogs Learn (Book)"}, {key:"fund", name:"How Dogs Learn & Strategies to Train Them"}];
 
 function renderNav(){
   nav.innerHTML = "";
@@ -2535,7 +2535,7 @@ function studyHTML(){
     '<header class="studyhero">'+
       '<div class="kicker">Study · every slide</div>'+
       '<h1>The Training Center</h1>'+
-      '<p class="summary">All four decks on one page. Pick a topic on the left to jump straight to it — or just scroll. Your course decks show each slide recreated from your class photos; the How Dogs Learn deck distills the book&rsquo;s figures into key points, reworded in our own way.</p>'+
+      '<p class="summary">All four decks on one page. Pick a topic on the left to jump straight to it — or just scroll. Your course decks show each slide recreated from your class photos; the How Dogs Learn (Book) deck distills the book&rsquo;s figures into key points, reworded in our own way.</p>'+
     '</header>';
   DECKS.forEach(dk=>{
     const group = TOPICS.filter(t=>t.deck===dk.key);

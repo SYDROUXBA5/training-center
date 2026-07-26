@@ -603,7 +603,7 @@
 <body>
 <div class="app">
   <aside id="aside">
-    <div class="brand">The Training Center<small>Dog training · Learning Theory + Puppies · 208 questions</small></div>
+    <div class="brand">The Training Center<small>Dog training · Learning Theory + Puppies + How Dogs Learn · 277 questions</small></div>
     <button class="pfchip" id="pfchip"><span class="av" id="pfav">🐕</span><span class="nm" id="pfnm"></span><span class="sw">SWITCH</span></button>
     <button class="menutoggle" id="menutoggle">☰ Topics &amp; modes</button>
     <div class="overall">
@@ -1226,8 +1226,193 @@ const PUP_TOPICS = [
 }
 ];;
 
+/* ============================================================
+   DECK 3 — "How Dogs Learn" (Burch & Bailey). Built from the
+   12-figure companion PDF in SLIdes/how-dogs-learn/. Because the
+   book is published work, these topics DISTILL its facts and
+   terminology into our own words (see NOTES.md) — no verbatim
+   slide cards for this deck. Nothing invented.
+   ============================================================ */
+const HDL_TOPICS = [
+{
+  id:"hist",
+  title:"A Century of Learning Science",
+  sources:["Figure 1 (pages 2–4)"],
+  srcnote:"Distilled from Figure 1 — reworded, not the book's text",
+  summary:"The book opens with a two-lane timeline running from the 1800s to the 1990s: on one side the scientists building learning theory, on the other the dog-training world slowly absorbing it. The lanes finally merge in 1994, when dog trainers join the Association for Behavior Analysis and the APDT is founded.",
+  points:[
+    "1800s: Pavlov (1849–1936) works out respondent conditioning and conditioned reflexes; on the dog side, the American Kennel Club forms in 1884.",
+    "1900s–1920s: Thorndike states the Law of Effect (1911) and Watson develops stimulus-response psychology; in Germany, Col. Conrad Most writes one of the first how-to training manuals (1910), describing Skinner-like principles decades early.",
+    "1930s: Skinner publishes Behavior of Organisms (1938); Helene Whitehouse Walker organizes the first obedience trial (1933) and AKC obedience regulations arrive (1936).",
+    "1940s: Project Pelican pairs Skinner with the Brelands (1942); Keller and Schoenfeld teach the first undergraduate operant-conditioning course (1947); the New England Dog Training Club becomes the first obedience club in the AKC (1941).",
+    "1950s: Skinner describes teaching animals with clickers (1951); Ayllon & Michael carry operant conditioning out of the lab as applied behavior analysis (1959); Lassie and Rin Tin Tin rule TV.",
+    "1960s: the Koehler Method book (1962), Scott & Fuller's genetics research (1965), Bob Bailey training military animals (1965), and the Journal of Applied Behavior Analysis (1968).",
+    "1970s–80s: the Association for Behavior Analysis forms (1974); Jack Michael describes establishing operations (1982); Ian Dunbar spreads food-lure training; Karen Pryor's Don't Shoot the Dog (1984) takes operant conditioning mainstream.",
+    "1990s: dog trainers join ABA and the Association of Pet Dog Trainers forms (both 1994) — science and dog training finally share a room."
+  ],
+  questions:[
+    {type:"mc",q:"On the timeline's dog-world lane, which organization forms in 1884?",opts:["The American Kennel Club","The APDT","The Association for Behavior Analysis","The New England Dog Training Club"],a:0,src:"Figure 1",why:"The 1800s row pairs Pavlov's science with the AKC forming in 1884 on the dog side."},
+    {type:"fib",q:"Thorndike's 1911 contribution is the Law of <span class='blank'>__________</span>.",acc:["effect"],src:"Figure 1",why:"The 1900s–1920s science lane lists E.L. Thorndike's Law of Effect (1911)."},
+    {type:"mc",q:"Who wrote one of the very first how-to dog training manuals (1910), describing principles similar to Skinner's long before Skinner published?",opts:["Col. Conrad Most","William Koehler","Blanche Saunders","Ian Dunbar"],a:0,src:"Figure 1",why:"The timeline credits Col. Conrad Most in Germany, 1910 — decades before Skinner's 1938 book."},
+    {type:"mc",q:"Skinner's foundational 1938 book is titled…",opts:["Behavior of Organisms","Don't Shoot the Dog","Training Dogs","The Law of Effect"],a:0,src:"Figure 1",why:"The 1930s science lane lists B.F. Skinner's Behavior of Organisms (1938)."},
+    {type:"mc",q:"Who organized the first obedience trial, in 1933?",opts:["Helene Whitehouse Walker","Karen Pryor","Winifred Strickland","Mary Burch"],a:0,src:"Figure 1",why:"The dog-world lane credits Helene Whitehouse Walker (1933); she later toured with Blanche Saunders demonstrating obedience."},
+    {type:"tf",q:"AKC obedience regulations were in place by 1936.",a:true,src:"Figure 1",why:"The 1930s dog-world lane lists AKC obedience regulations in place in 1936."},
+    {type:"mc",q:"Project Pelican (1942) teamed Skinner with…",opts:["The Brelands","Keller and Schoenfeld","Scott and Fuller","Ayllon and Michael"],a:0,src:"Figure 1",why:"The 1940s row lists Project Pelican — Skinner and the Brelands, who went on to found Animal Behavior Enterprises."},
+    {type:"fib",q:"In 1951, Skinner described teaching animals with <span class='blank'>__________</span>.",acc:["clickers","a clicker","clicker"],src:"Figure 1",why:"The 1950s science lane: Skinner describes teaching animals with clickers (1951)."},
+    {type:"mc",q:"Ayllon & Michael (1959) are credited on the timeline with…",opts:["Bringing operant conditioning out of the lab as applied behavior analysis","Inventing the clicker","Founding the APDT","Writing the first obedience regulations"],a:0,src:"Figure 1",why:"The 1950s row credits them with carrying operant conditioning into applied behavior analysis."},
+    {type:"tf",q:"Bob Bailey was using operant conditioning with military animals by 1965.",a:true,src:"Figure 1",why:"The 1960s science lane lists Bob Bailey's military animal work (1965), alongside the founding of the Journal of Applied Behavior Analysis (1968)."},
+    {type:"mc",q:"Which 1984 book is credited with taking operant conditioning to the general public?",opts:["Don't Shoot the Dog (Karen Pryor)","The Koehler Method of Dog Training","Behavior Problems in Dogs","New Knowledge of Dog Behavior"],a:0,src:"Figure 1",why:"The 1980s row: Karen Pryor's Don't Shoot the Dog (1984) took operant conditioning mainstream."},
+    {type:"mc",q:"What double event in 1994 finally merged the science and dog-training lanes?",opts:["Dog trainers joined the ABA and the APDT was formed","The AKC adopted clicker training and banned corrections","The first obedience trial and the first puppy class","Skinner and Koehler co-published a manual"],a:0,src:"Figure 1",why:"The 1990s row lists trainers joining the Association for Behavior Analysis and the founding of the Association of Pet Dog Trainers, both in 1994."}
+  ]
+},
+{
+  id:"condrein",
+  title:"Building a Conditioned Reinforcer",
+  sources:["Figure 2 (page 5)"],
+  srcnote:"Distilled from Figure 2 — reworded, not the book's text",
+  summary:"Figure 2 shows how a meaningless sound like “good dog” becomes a reward in its own right: sandwich it between the response and the primary reinforcer often enough and it acquires reinforcing power itself — then keep it charged by occasionally backing it up with the real thing.",
+  points:[
+    "The notation: Sᴰ is the cue, R the response, Sᴺ a neutral stimulus (like the words “good dog”), and SR+ the primary reinforcer (like biscuits).",
+    "Step 1: run the sequence cue → response → neutral stimulus → primary reinforcer, several times — the neutral sound lands between the response and the food.",
+    "Step 2: after several repetitions the neutral stimulus becomes a conditioned reinforcer, capable of acting like a primary one.",
+    "Step 3: to keep a conditioned reinforcer effective, follow it with the primary reinforcer occasionally — roughly every third to tenth time.",
+    "The worked example uses the cue “fetch the paper”, with dog biscuits as the primary reinforcer."
+  ],
+  questions:[
+    {type:"mc",q:"In Figure 2's notation, Sᴰ stands for…",opts:["The cue","The response","The neutral stimulus","The primary reinforcer"],a:0,src:"Figure 2",why:"Sᴰ is the cue (the example uses “fetch the paper”); R is the response."},
+    {type:"mc",q:"The Sᴺ in the conditioning sequence is…",opts:["A neutral stimulus, like saying “good dog”","The strongest available reinforcer","A physical correction","The behavior being trained"],a:0,src:"Figure 2",why:"Sᴺ is the neutral stimulus — words like “good dog” that mean nothing to the dog at first."},
+    {type:"fib",q:"SR+ stands for the <span class='blank'>__________</span> reinforcer.",acc:["primary"],src:"Figure 2",why:"SR+ is the primary reinforcer — dog biscuits in the worked example."},
+    {type:"mc",q:"What is the correct Step 1 order?",opts:["Cue → response → neutral stimulus → primary reinforcer","Cue → neutral stimulus → response → primary reinforcer","Primary reinforcer → response → cue → neutral stimulus","Response → cue → primary reinforcer → neutral stimulus"],a:0,src:"Figure 2",why:"Step 1 runs Sᴰ → R → Sᴺ → SR+, repeated several times."},
+    {type:"tf",q:"In Step 1, the neutral stimulus comes after the food.",a:false,src:"Figure 2",why:"It is the reverse: the neutral stimulus comes right after the response and is then followed by the food — that ordering is what charges it."},
+    {type:"mc",q:"What does the neutral stimulus become after several repetitions?",opts:["A conditioned reinforcer","A punisher","An unconditioned stimulus","A cue"],a:0,src:"Figure 2",why:"Step 2: with repetition the neutral stimulus becomes a conditioned reinforcer (written SR+)."},
+    {type:"mc",q:"Once conditioned, the former neutral stimulus can…",opts:["Act like a primary reinforcer","Replace the cue","Extinguish the behavior","Only work in the training room"],a:0,src:"Figure 2",why:"Step 2 notes the conditioned reinforcer becomes capable of acting as a primary reinforcer."},
+    {type:"fib",q:"To keep its power, the conditioned reinforcer should occasionally be followed by the primary — around every <span class='blank'>__________</span> to tenth time.",acc:["third","3rd","3"],src:"Figure 2",why:"Step 3: maintain effectiveness by backing it up with food roughly every third to tenth time."},
+    {type:"tf",q:"Once “good dog” is conditioned, it will keep its value forever without ever being paired with food again.",a:false,src:"Figure 2",why:"Step 3 exists precisely because it won't — occasional pairing with the primary reinforcer maintains its effectiveness."},
+    {type:"mc",q:"The worked example's cue is…",opts:["“Fetch the paper”","“Drop it”","“Go potty”","“Leave it”"],a:0,src:"Figure 2",why:"The example dog (Laddie) is cued to fetch the paper, then hears “good dog”, then gets biscuits."}
+  ]
+},
+{
+  id:"respondent2",
+  title:"Respondent Conditioning, Step by Step",
+  sources:["Figure 5 (page 8)","Figure 6 (page 9)"],
+  srcnote:"Distilled from Figures 5–6 — reworded, not the book's text",
+  summary:"Figure 5 lays out respondent (Pavlovian) conditioning in four steps with its classic symbols, using a shaken biscuit box; Figure 6 lists the reflexes dogs are born with — the raw material this kind of conditioning works on.",
+  points:[
+    "The symbols: US = unconditioned stimulus, NS = neutral stimulus, CS = conditioned stimulus, UR = unconditioned response, CR = conditioned response.",
+    "Step 1: a biscuit in the mouth (US) elicits salivation (UR) — no learning required.",
+    "Step 2: shaking the biscuit box (NS) alone produces no response beyond orientation.",
+    "Step 3: shake the box, then give a biscuit; the dog salivates while eating. Repeat several times.",
+    "Step 4: the box shake alone now triggers salivation before any biscuit arrives — the NS has become the CS, and the UR is now called the CR.",
+    "Born-in reflex pairs from Figure 6: touching a newborn's lips → sucking; food in the mouth → salivation; an object or puff of air at the eye → blinking; a squeeze or rub on the throat → coughing; pain → jerking away and flight-or-fight (bolting or aggression); loud sudden stimuli like thunder or a screaming person → the fear-and-startle response (muscle tension, faster heart rate and breathing, panting); bright light → pupils constrict."
+  ],
+  questions:[
+    {type:"mc",q:"In respondent-conditioning notation, US stands for…",opts:["Unconditioned stimulus","Unusual stimulus","Unconditioned salivation","Universal signal"],a:0,src:"Figure 5",why:"US = unconditioned stimulus; NS = neutral; CS = conditioned; UR/CR are the responses."},
+    {type:"fib",q:"After conditioning, the unconditioned response is renamed the <span class='blank'>__________</span> response.",acc:["conditioned"],src:"Figure 5",why:"Step 4's note: the NS is now the CS, and the UR is now referred to as the CR — the conditioned response."},
+    {type:"mc",q:"In the worked example, the neutral stimulus is…",opts:["Shaking the biscuit box","The biscuit itself","Salivation","The trainer's voice"],a:0,src:"Figure 5",why:"The box shake starts as the NS; the biscuit in the mouth is the US."},
+    {type:"mc",q:"In Step 2, the neutral stimulus alone produces…",opts:["No response except orientation","Salivation","Fear","A sit"],a:0,src:"Figure 5",why:"Before pairing, shaking the box gets nothing but the dog looking — orientation only."},
+    {type:"mc",q:"What is the proof, in Step 4, that conditioning has worked?",opts:["The dog salivates at the box shake before receiving any biscuit","The dog eats faster","The dog barks at the box","The dog ignores the box"],a:0,src:"Figure 5",why:"Salivation now arrives before the food — the response has attached to the box shake itself."},
+    {type:"tf",q:"Through the pairing process, the neutral stimulus becomes the conditioned stimulus.",a:true,src:"Figure 5",why:"That renaming — NS to CS — is exactly what the four steps accomplish."},
+    {type:"mc",q:"The unconditioned response to food in the mouth is…",opts:["Salivation","Blinking","Coughing","Panting"],a:0,src:"Figure 6",why:"Food in the mouth → salivation, the same reflex Pavlov exploited."},
+    {type:"mc",q:"An object or puff of air toward the eye triggers…",opts:["Blinking","Salivation","Sucking","Coughing"],a:0,src:"Figure 6",why:"The eye-protection reflex: object or air puff → blink."},
+    {type:"mc",q:"Touching a newborn puppy's lips triggers which reflex?",opts:["Sucking","Blinking","Startle","Cough"],a:0,src:"Figure 6",why:"Finger to a newborn's lips → the sucking reflex."},
+    {type:"mc",q:"Thunder, lightning or a screaming person elicit…",opts:["The fear-and-startle response — muscle tension, faster heart rate and breathing, panting","Salivation and tail wagging","Pupil constriction only","The sucking reflex"],a:0,src:"Figure 6",why:"Loud, unfamiliar, intense stimuli trigger fear and startle, with visible stress signs."},
+    {type:"fib",q:"Bright light in the eyes makes the pupils <span class='blank'>__________</span>.",acc:["constrict","contract"],src:"Figure 6",why:"The last pair in the table: bright light → pupils constrict."},
+    {type:"tf",q:"Pain can trigger flight-or-fight — running away or even aggression.",a:true,src:"Figure 6",why:"Pain → jerking away quickly and the flight-or-fight response, which can mean bolting or aggression."}
+  ]
+},
+{
+  id:"assess",
+  title:"Finding Reinforcers, Naming Punishers",
+  sources:["Figure 3 (page 6)","Figure 4 (page 7)"],
+  srcnote:"Distilled from Figures 3–4 — reworded, not the book's text",
+  summary:"Figure 3 is a form for discovering what a particular dog actually finds reinforcing — present stimuli category by category and read the dog's reaction. Figure 4 sorts punishers into five families, from withdrawing attention up to physical corrections and the occasional lesson nature delivers on its own.",
+  points:[
+    "Run a reinforcer assessment when you are not sure what reinforces this dog, or when the dog seems to be losing interest — and spread it over several sessions.",
+    "Categories tested: visual (a flashlight, a moving toy), auditory (squeaky toy, a bright “Good boy!”), taste (treats, cheese), touch (tummy or head petting, brushing), motion (car rides, running, swimming), social play (fetch, tug), and conditioned stimuli such as the clicker.",
+    "“Likes it” reads as: looking at it, reaching for or taking it, activity rising. “Doesn't like it” reads as: moving away or slinking, fearful or aggressive barking or growling, a stiffening body. A dog can also simply show no response.",
+    "Stimuli the dog loves can double as rewards after training sessions.",
+    "Figure 4's five punisher families: time out (withdrawing attention, a crate time-out), response cost (removing a toy or play time), verbal reprimands (“No!”, “Stop that!”), physical punishers (leash corrections, pinch collars, shock collars and other aversives), and natural punishers — like the snake that bites a dog for sticking its head in a hole."
+  ],
+  questions:[
+    {type:"mc",q:"When does Figure 3 say to run a reinforcer assessment?",opts:["When you're unsure what reinforces the dog, or it seems to be losing interest","Only with puppies under 12 weeks","After every training session","Only when food is refused"],a:0,src:"Figure 3",why:"The form exists for exactly those two cases — unknown reinforcers, or fading interest — run over several sessions."},
+    {type:"mc",q:"Which reaction signals the dog LIKES a stimulus?",opts:["Reaching for or taking it","Slinking away","Stiffening the body","Growling"],a:0,src:"Figure 3",why:"Like-signs: looking at it, reaching for/taking/touching it, rising activity. The others are dislike-signs."},
+    {type:"mc",q:"Which reaction signals the dog does NOT like a stimulus?",opts:["Moving away, crouching or slinking","Reaching for it","Increased facial activity","Looking at it"],a:0,src:"Figure 3",why:"Dislike reads as retreat, fearful or aggressive vocalizing, or a stiffened body."},
+    {type:"tf",q:"A dog can also show no response at all to a tested stimulus.",a:true,src:"Figure 3",why:"The form's third column exists for exactly that: no response, or mere tolerance."},
+    {type:"fib",q:"Besides visual, auditory, taste, touch, motion and social stimuli, the form also tests <span class='blank'>__________</span> stimuli such as the clicker.",acc:["conditioned"],src:"Figure 3",why:"The final category is conditioned stimuli — the clicker being the classic example."},
+    {type:"mc",q:"Removing a toy or cutting play time short belongs to which punisher family?",opts:["Response cost","Time out","Verbal reprimand","Natural punisher"],a:0,src:"Figure 4",why:"Response cost = taking away something the dog values, like the toy or the play itself."},
+    {type:"mc",q:"A time-out in the crate is an example of…",opts:["Time out — withdrawing attention","Physical punishment","Response cost","A natural punisher"],a:0,src:"Figure 4",why:"The time-out family covers withdrawn attention and crate time-outs."},
+    {type:"mc",q:"“No!!” and “Stop that!” fall under…",opts:["Verbal reprimands","Response cost","Natural punishers","Time out"],a:0,src:"Figure 4",why:"Sharp words — including loudly yelling the dog's name — are the verbal-reprimand family."},
+    {type:"mc",q:"Leash corrections, pinch collars and shock collars are grouped as…",opts:["Physical punishers","Verbal reprimands","Response cost","Time out"],a:0,src:"Figure 4",why:"They sit in the physical-punisher family along with hitting, shoving and other aversive procedures."},
+    {type:"mc",q:"A dog bitten by a snake after sticking its head in a hole experienced…",opts:["A natural punisher","Response cost","A verbal reprimand","Negative reinforcement"],a:0,src:"Figure 4",why:"Nature delivered the consequence itself — the figure's example of a natural punisher."},
+    {type:"tf",q:"Response cost means adding something unpleasant after the behavior.",a:false,src:"Figure 4",why:"Response cost removes something the dog values (a toy, play time) — adding an aversive is the physical/verbal side."}
+  ]
+},
+{
+  id:"funcanal",
+  title:"Functional Analysis & Diagnostics",
+  sources:["Figure 7 (pages 10–11)","Figure 8 (page 12)","Figure 9 (page 13)"],
+  srcnote:"Distilled from Figures 7–9 — reworded, not the book's text",
+  summary:"Why is the dog doing it? Figure 7 lays out five jobs a problem behavior can perform and pairs each with its treatment; Figure 8 is the owner questionnaire that hunts antecedents and consequences; Figure 9 widens the lens to five diagnostic categories — from genetics to medicine — so the treatment matches the cause.",
+  points:[
+    "Five functions a problem behavior can serve: getting attention; getting access to reinforcers like food, toys or bones; escaping or avoiding a demand (such as training); sensory stimulation; and communicating a biological need.",
+    "Attention-seekers jump up, spin, roll to expose the belly, bark, parade with a toy, nudge — treat with extinction of the attention-seeking while reinforcing desired behavior, and give real attention at appropriate times.",
+    "Escape looks like acting silly, shutting down, staring into the distance, ignoring cues — treat by continuing training but easier: smaller tasks, short sessions lengthened gradually, gentle guidance paired with reinforcement, and a raise in reinforcement value.",
+    "Sensory-driven dogs watch passing dogs, sniff the ground and track scents instead of working — remove distractors for beginners, reinforce attention to the trainer, then reintroduce distractions deliberately (planned distraction training).",
+    "A dog barking and running to the door to go out is communicating a legitimate biological need — reinforce that communication rather than extinguish it.",
+    "Figure 8's questionnaire splits into antecedent questions (when, where, who is present, when is it NOT a problem, what happens just before, can you trigger it on purpose?) and consequence questions (what follows immediately — petting? scolding?).",
+    "Figure 9's five diagnostic buckets: genetics (terriers dig, Border Collies herd, inherited temperament), self-stimulation (boredom chewing, circling), operant variables (the five functions), learning history (fear from punishment or trauma, past abuse, a history of reinforcement for the behavior, lack of training), and medical or physiological causes (pain, illness, medication side-effects)."
+  ],
+  questions:[
+    {type:"mc",q:"Which of these is NOT one of Figure 7's five functions of problem behavior?",opts:["Spite","Attention","Escape from a demand","Sensory stimulation"],a:0,src:"Figure 7",why:"The five functions are attention, access to reinforcers, escape/avoidance, sensory stimulation, and communication — spite is not on the list."},
+    {type:"mc",q:"Jumping up, spinning, rolling to expose the belly and parading with a toy typically signal which function?",opts:["Attention-seeking","Escape","Sensory stimulation","Communication of a biological need"],a:0,src:"Figure 7",why:"That cluster — plus barking at and nudging the owner — is the attention profile."},
+    {type:"mc",q:"The paired treatment for attention-driven behavior is…",opts:["Extinction of the attention-seeking while reinforcing desired behavior","More petting whenever it occurs","A physical correction","Ignoring the dog permanently"],a:0,src:"Figure 7",why:"Starve the problem of attention, feed the alternatives — and give real attention after sessions and at proper times."},
+    {type:"mc",q:"During training a dog acts silly, shuts down, stares into the distance and “doesn't hear” cues. Which function fits?",opts:["Escape or avoidance of the demand","Attention","Access to reinforcers","Communication"],a:0,src:"Figure 7",why:"That is the escape profile — the dog is dodging a demand situation like training."},
+    {type:"mc",q:"Which is part of the escape-function treatment?",opts:["Make the task easier and reinforce, then raise difficulty gradually","Punish the silliness immediately","End all training for a month","Add more distractions at once"],a:0,src:"Figure 7",why:"Easier tasks, short sessions lengthened gradually, gentle guidance paired with reinforcement, and richer rewards."},
+    {type:"mc",q:"Watching passing dogs, sniffing where people walked and tracking ground scents while ignoring cues points to…",opts:["Sensory stimulation","Attention-seeking","A medical cause","Spite"],a:0,src:"Figure 7",why:"The sensory profile: the environment out-competes the trainer. Treatment starts by removing distractors and reinforcing attention."},
+    {type:"mc",q:"A dog that barks and runs toward the door because it needs to go outside should be…",opts:["Reinforced — it is legitimate communication","Put on extinction","Crated immediately","Ignored until quiet"],a:0,src:"Figure 7",why:"Communication of biological needs is the one function you reinforce rather than extinguish."},
+    {type:"mc",q:"“What is happening just before the behavior?” is which type of questionnaire item?",opts:["An antecedent question","A consequence question","A diagnosis","A reinforcer assessment"],a:0,src:"Figure 8",why:"Antecedent questions cover when, where, who is present, and what precedes the behavior — including whether you can trigger it on purpose."},
+    {type:"mc",q:"“What usually happens immediately after — how do you react, petting, scolding?” probes…",opts:["The consequences maintaining the behavior","The antecedents","The dog's genetics","The reinforcement schedule"],a:0,src:"Figure 8",why:"The consequence section asks what follows the behavior, because that is what keeps it alive."},
+    {type:"mc",q:"Terriers digging holes and Border Collies herding other animals belong to which diagnostic category?",opts:["Genetics","Learning history","Self-stimulation","Operant variables"],a:0,src:"Figure 9",why:"Breed-typical patterns and inherited temperament sit in the genetics bucket."},
+    {type:"mc",q:"A bored dog chewing on itself or running in circles illustrates…",opts:["Self-stimulation","Genetics","Communication","Medical causes"],a:0,src:"Figure 9",why:"Self-stimulation covers boredom chewing of self or objects and circling."},
+    {type:"fib",q:"Fear of people or situations caused by past punishment or trauma belongs to the dog's learning <span class='blank'>__________</span>.",acc:["history"],src:"Figure 9",why:"The learning-history bucket: fear born of punishment or trauma, past abuse, past reinforcement of the behavior, or plain lack of training."}
+  ]
+},
+{
+  id:"medcraft",
+  title:"Medical Causes, the Trainer's Craft & Chaining",
+  sources:["Figure 10 (page 14)","Figure 11 (pages 15–16)","Figure 12 (page 17)"],
+  srcnote:"Distilled from Figures 10–12 — reworded, not the book's text",
+  summary:"Figure 10 maps medical problems to the misbehavior they masquerade as — rule these out first. Figure 11 is the observation form a good trainer is graded on, from small-step task design to punishment as a last resort. Figure 12 closes with backward chaining: build the last link of a behavior chain first, then hook earlier links onto it.",
+  points:[
+    "Medicine masquerading as misbehavior: ear infections or tooth trouble read as aggression and resisting touch; deafness reads as noncompliance; hip dysplasia or arthritis produce slow sits, refused jumps and avoided stairs; vision problems mean missed hand signals and startling at fast approaches.",
+    "More mappings: tapeworms → food pushiness and garbage raiding; intestinal parasites → bowel accidents; central-nervous-system problems → disorientation; nutritional deficiencies → lethargy, begging, food stealing, even eating feces.",
+    "The trainer form's craft items: goals suited to the dog, tasks broken into small steps in logical sequence, sessions that change tasks often and end on a positive note — quit while it is still fun.",
+    "Reinforcer delivery is graded on choosing something this dog values, immediate timing, consistency, the right size, and fading the schedule from continuous to variable as the skill solidifies.",
+    "Stimulus control: consistent hand signals, footwork and body language, not overly verbal, and cues faded gradually — not too fast.",
+    "For behavior problems the form demands medical causes ruled out first, then functional analysis; punishment appears only after positive procedures have been tried — minimal, humane, delivered without emotion, with a return to positives as soon as possible.",
+    "The attitude test: an upbeat, positive demeanor — would you want this person teaching you?",
+    "Backward chaining (Figure 12): teach the LAST step first (drop the toy in the box), reinforce, then add walking to the box, then picking the toy up, then doing it all from farther away. Each new link is added in front of the chain the dog already knows, and the primary reinforcer stays at the end."
+  ],
+  questions:[
+    {type:"mc",q:"A dog that suddenly resists being touched and snaps may well have…",opts:["An ear infection or tooth problem","A grudge","Too much training","A need for a firmer collar"],a:0,src:"Figure 10",why:"Both ear infections and tooth problems map to aggression and resisting touch — a vet visit comes before a training plan."},
+    {type:"mc",q:"Slower sits, refusing jumps and avoiding stairs point to…",opts:["Hip dysplasia or arthritis","Stubbornness","Deafness","Tapeworms"],a:0,src:"Figure 10",why:"Joint pain shows up as slow position changes, refused jumps and stairs, and reluctance to play."},
+    {type:"mc",q:"A dog that stops responding to hand signals and startles when people approach quickly may have…",opts:["Vision problems","A learning-history issue","Nutritional deficiencies","An ear infection"],a:0,src:"Figure 10",why:"Cataracts, retinal disease or hair over the eyes read as ignoring visual cues and startling at fast approaches."},
+    {type:"mc",q:"Bowel accidents in the house map to which medical cause?",opts:["Intestinal parasites","Prostate problems","Deafness","Skin allergies"],a:0,src:"Figure 10",why:"Intestinal parasites → bowel accidents; prostate problems show as mounting and bladder accidents instead."},
+    {type:"mc",q:"Lethargy plus begging, stealing food, raiding the garbage and eating feces suggests…",opts:["Nutritional deficiencies","Perfect health","Attention-seeking only","Too many treats"],a:0,src:"Figure 10",why:"That cluster is the nutritional-deficiency row of the medical table."},
+    {type:"tf",q:"On the trainer observation form, punishment is acceptable as a first resort if it works quickly.",a:false,src:"Figure 11",why:"The form allows punishment only after positive procedures have been tried — minimal, humane, emotionless, and back to positives as soon as possible."},
+    {type:"mc",q:"As a dog learns a skill, the form wants the reinforcement schedule faded from…",opts:["Continuous to variable","Variable to continuous","Primary to punishment","Fixed to continuous"],a:0,src:"Figure 11",why:"Continuous reinforcement builds the skill; fading to a variable schedule makes it durable."},
+    {type:"mc",q:"How should training sessions be run, per the form?",opts:["Change tasks often and end on a positive note — quit while it's still fun","Drill one task until perfect, however long it takes","Always train to mild frustration","Keep sessions unpredictable in mood"],a:0,src:"Figure 11",why:"Task variety, positive endings, and training that stays fun are graded items — as is the trainer's upbeat demeanor."},
+    {type:"mc",q:"Before running a functional analysis on a behavior problem, the trainer must first…",opts:["Rule out medical problems","Buy a better leash","Try a correction","Extend session length"],a:0,src:"Figure 11",why:"The behavior-problems section starts with medical causes ruled out, then environmental fixes and functional analysis."},
+    {type:"mc",q:"In backward chaining, which part of the chain is taught first?",opts:["The last step","The first step","The middle step","All steps at once"],a:0,src:"Figure 12",why:"The example teaches the final link — dropping the toy in the box — first, then hooks earlier links in front of it."},
+    {type:"mc",q:"Where does the primary reinforcer sit in a finished behavior chain?",opts:["At the end of the chain","After every link","Before the cue","At random points"],a:0,src:"Figure 12",why:"Each round ends with the treat after the final link — the chain runs to the reinforcer at its end."},
+    {type:"fib",q:"In Figure 12's example, the first behavior Holly learns on cue is to <span class='blank'>__________</span> the toy in the box.",acc:["drop"],src:"Figure 12",why:"Step 1 teaches “drop it” while she stands right over the box; later steps add walking to the box and picking the toy up."}
+  ]
+}
+];
+
 const TOPICS = LT_TOPICS.map(t=>Object.assign({}, t, {deck:"learning", deckName:"Learning Theory"}))
-  .concat(PUP_TOPICS.map(t=>Object.assign({}, t, {deck:"puppy", deckName:"Puppies"})));
+  .concat(PUP_TOPICS.map(t=>Object.assign({}, t, {deck:"puppy", deckName:"Puppies"})))
+  .concat(HDL_TOPICS.map(t=>Object.assign({}, t, {deck:"book", deckName:"How Dogs Learn"})));
 
 const MIXED_SIZE = 20;
 const DRILL_SIZE = 12;
@@ -1255,7 +1440,13 @@ const SECTIONS = {
   housetrain:["Timing & schedule","Timing & schedule","Timing & schedule","Timing & schedule","Training outside & cleanup","Training outside & cleanup","Training outside & cleanup","Training outside & cleanup","Methods & signals","Methods & signals","Methods & signals","Methods & signals"],
   problems:["Coprophagia","Coprophagia","Involuntary urination","Diarrhea & diet","Diarrhea & diet","Hard cases & medical","Hard cases & medical","Hard cases & medical","Hard cases & medical","Hard cases & medical","Involuntary urination"],
   behavior:["Grooming, cars & training","Grooming, cars & training","Grooming, cars & training","Grooming, cars & training","Mouthing & biting","Mouthing & biting","Chewing & leave it","Chewing & leave it","Adolescence & separation anxiety","Adolescence & separation anxiety","Adolescence & separation anxiety","Grooming, cars & training"],
-  servicedog:["Certification myth","The two legal questions","The two legal questions","Certification myth","Certification myth","The two legal questions","The two legal questions"]
+  servicedog:["Certification myth","The two legal questions","The two legal questions","Certification myth","Certification myth","The two legal questions","The two legal questions"],
+  hist:["1800s–1930s","1800s–1930s","1800s–1930s","1800s–1930s","1800s–1930s","1800s–1930s","1940s–1960s","1940s–1960s","1940s–1960s","1940s–1960s","1970s–1990s","1970s–1990s"],
+  condrein:["The notation","The notation","The notation","The three steps","The three steps","The three steps","The three steps","The three steps","The three steps","The three steps"],
+  respondent2:["The four steps","The four steps","The four steps","The four steps","The four steps","The four steps","Born-in reflexes","Born-in reflexes","Born-in reflexes","Born-in reflexes","Born-in reflexes","Born-in reflexes"],
+  assess:["Reinforcer assessment","Reinforcer assessment","Reinforcer assessment","Reinforcer assessment","Reinforcer assessment","Punisher families","Punisher families","Punisher families","Punisher families","Punisher families","Punisher families"],
+  funcanal:["Five functions","Five functions","Five functions","Five functions","Five functions","Five functions","Five functions","The questionnaire","The questionnaire","Diagnostics","Diagnostics","Diagnostics"],
+  medcraft:["Medical causes","Medical causes","Medical causes","Medical causes","Medical causes","Trainer's checklist","Trainer's checklist","Trainer's checklist","Trainer's checklist","Backward chaining","Backward chaining","Backward chaining"]
 };
 TOPICS.forEach(t => t.questions.forEach((q,i) => {
   q.qid = t.id + "#" + i;
@@ -1841,7 +2032,14 @@ const SHORT = {
   housetrain:"House Training",
   problems:"Elimination Problems",
   behavior:"Behavior & Development",
-  servicedog:"Service Dogs & Law"
+  servicedog:"Service Dogs & Law",
+  // How Dogs Learn
+  hist:"Century of Science",
+  condrein:"Conditioned Reinforcer",
+  respondent2:"Respondent Steps",
+  assess:"Reinforcers & Punishers",
+  funcanal:"Functional Analysis",
+  medcraft:"Medical & Chaining"
 };
 
 function navLabel(text){
@@ -1851,7 +2049,7 @@ function navLabel(text){
   nav.appendChild(d);
 }
 
-const DECKS = [{key:"learning", name:"Learning Theory"}, {key:"puppy", name:"Puppies"}];
+const DECKS = [{key:"learning", name:"Learning Theory"}, {key:"puppy", name:"Puppies"}, {key:"book", name:"How Dogs Learn"}];
 
 function renderNav(){
   nav.innerHTML = "";
@@ -2129,16 +2327,17 @@ function studyHTML(){
     '<header class="studyhero">'+
       '<div class="kicker">Study · every slide</div>'+
       '<h1>The Training Center</h1>'+
-      '<p class="summary">Both decks, every slide, on one page. Pick a topic on the left to jump straight to it — or just scroll. Each card below is the slide recreated word-for-word, with its key points above.</p>'+
+      '<p class="summary">All three decks on one page. Pick a topic on the left to jump straight to it — or just scroll. Your course decks show each slide recreated word-for-word; the How Dogs Learn deck distills the book&rsquo;s figures into key points, reworded in our own way.</p>'+
     '</header>';
   DECKS.forEach(dk=>{
     const group = TOPICS.filter(t=>t.deck===dk.key);
     if(!group.length) return;
     const slideSet = new Set(); group.forEach(x=>x.sources.forEach(s=>{ if(SLIDES[s]) slideSet.add(s); })); const slides = slideSet.size;
+    const deckQ = group.reduce((n,t)=>n+t.questions.length,0);
     h += '<div class="deckband" id="deck-'+dk.key+'">'+
       '<div class="dk">Deck</div>'+
       '<h3>'+esc(dk.name)+'</h3>'+
-      '<div class="dmeta">'+group.length+' topics · '+slides+' slides</div>'+
+      '<div class="dmeta">'+group.length+' topics · '+(slides? slides+' slides' : deckQ+' questions')+'</div>'+
     '</div>';
     group.forEach((t,i)=>{
       h += '<section class="studysec" id="sec-'+t.id+'" data-id="'+t.id+'">'+
@@ -2157,7 +2356,7 @@ function studyHTML(){
       }
       if(t.note) h += '<div class="note">'+esc(t.note)+'</div>';
       h += '<div class="secfoot">'+
-        '<span class="srcs">'+(slideCards.length? slideCards.length+' slide'+(slideCards.length===1?'':'s')+' in this topic' : 'Drawn from the lecture notes')+'</span>'+
+        '<span class="srcs">'+(slideCards.length? slideCards.length+' slide'+(slideCards.length===1?'':'s')+' in this topic' : esc(t.srcnote || 'Drawn from the lecture notes'))+'</span>'+
         '<button class="btn ghost sm" data-quiz="'+t.id+'">Practice · '+t.questions.length+' q</button>'+
       '</div>'+
       '</section>';
@@ -2314,7 +2513,7 @@ function showMixedIntro(){
   const summary = single
     ? 'All '+scopeQ+' questions from “'+esc(label)+'”, freshly shuffled every run — question order and answer positions never sit still.'
     : scope==="__all"
-      ? 'A random draw of '+MIXED_SIZE+' questions from all '+TOPICS.length+' topics across both decks — '+TOTAL_Q+' questions in the pool. A fresh set is shuffled every time.'
+      ? 'A random draw of '+MIXED_SIZE+' questions from all '+TOPICS.length+' topics across all '+DECKS.length+' decks — '+TOTAL_Q+' questions in the pool. A fresh set is shuffled every time.'
       : 'A random draw of '+MIXED_SIZE+' questions from the '+esc(label)+' deck ('+scopeQ+' questions in the pool). A fresh set is shuffled every time.';
   main.innerHTML =
     '<div class="kicker">Mixed review</div>'+
@@ -2334,7 +2533,7 @@ function showMixedIntro(){
 
 /* ============================================================
    CUSTOM QUIZ BUILDER — tick whole topics or individual
-   sub-sections across both decks and mix them into one quiz.
+   sub-sections across all decks and mix them into one quiz.
    ============================================================ */
 function selKey(tid, sec){ return tid + "||" + sec; }
 function customCount(){

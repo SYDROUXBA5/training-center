@@ -2058,18 +2058,11 @@ function renderNav(){
     if(!group.length) return;
     navLabel(dk.name);
     group.forEach(t=>{
-      const tm = topicMastery(t);
-      const total = t.questions.length;
-      const p = Math.round(100*tm.m/total);
-      const started = tm.m + tm.weak > 0;
       const btn = document.createElement("button");
       btn.className = "navbtn" + (current===t.id ? " active":"");
       btn.title = t.title;
       btn.dataset.id = t.id;
-      btn.innerHTML =
-        '<div class="row"><span class="t">'+esc(SHORT[t.id] || t.title)+'</span>'+
-        '<span class="sc">'+(started? tm.m+"/"+total+" ✓" : total+" q")+'</span></div>'+
-        '<div class="bar"><i class="'+(p===100?"full":"")+'" style="width:'+p+'%"></i></div>';
+      btn.innerHTML = '<div class="row"><span class="t">'+esc(SHORT[t.id] || t.title)+'</span></div>';
       btn.onclick = ()=> goStudy(t.id);
       nav.appendChild(btn);
     });

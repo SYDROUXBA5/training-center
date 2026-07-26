@@ -603,7 +603,7 @@
 <body>
 <div class="app">
   <aside id="aside">
-    <div class="brand">The Training Center<small>Dog training · Learning Theory + Puppies + How Dogs Learn · 277 questions</small></div>
+    <div class="brand">The Training Center<small>Dog training · 4 decks · 345 questions</small></div>
     <button class="pfchip" id="pfchip"><span class="av" id="pfav">🐕</span><span class="nm" id="pfnm"></span><span class="sw">SWITCH</span></button>
     <button class="menutoggle" id="menutoggle">☰ Topics &amp; modes</button>
     <div class="overall">
@@ -1410,9 +1410,188 @@ const HDL_TOPICS = [
 }
 ];
 
+/* ============================================================
+   DECK 4 — "Training Fundamentals" — the course "How Dogs Learn:
+   Dog Training Fundamentals" (25 slide photos in
+   SLIdes/how dogs learn & and strategie to train them /).
+   Transcript: transcript.md in that folder. Nothing invented.
+   ============================================================ */
+const FUND_TOPICS = [
+{
+  id:"howlearn",
+  title:"Ways Dogs Learn: Active, Passive & Social",
+  sources:["IMG_3852","IMG_3853","IMG_3854"],
+  summary:"The course opens with the trainer's first realization: dogs are learning all the time, with or without us. Learning splits into active (behaviors we teach, like sit) and passive (behaviors the environment teaches, like opening doors), social learning comes in three flavors, and dogs grasp absolutes far better than sometimes-rules.",
+  points:[
+    "Dogs are constantly learning whether they are in the presence of humans or not — so trainers must control and regulate what the dog is learning.",
+    "Sit, jump and roll over are examples of active learning; opening doors, lifting the toilet seat and activating the ice maker are passive learning.",
+    "Social learning — imitation: using someone or something as a model.",
+    "Social learning — emulation: copying the actions of another with an attempt to improve.",
+    "Social learning — social facilitation: engaging in a behavior because someone or something else is.",
+    "Dogs can easily understand ALWAYS and NEVER — that a behavior is always allowed or never allowed.",
+    "Dogs have difficulty with SOMETIMES and MAYBE — applying when they can sometimes engage in certain behaviors."
+  ],
+  questions:[
+    {type:"mc",q:"Sit, jump and roll over are the slide's examples of…",opts:["Active learning","Passive learning","Social facilitation","Emulation"],a:0,src:"IMG_3852",why:"The left column lists sit, jump and roll over as active learning — behaviors deliberately taught."},
+    {type:"mc",q:"Opening doors, lifting the toilet seat and activating the ice maker are examples of…",opts:["Passive learning","Active learning","Imitation","Extinction"],a:0,src:"IMG_3852",why:"The right column: things the dog teaches itself from the environment — passive learning."},
+    {type:"tf",q:"Dogs are constantly learning, whether or not humans are present.",a:true,src:"IMG_3852",why:"The slide's opening line — which is why trainers must control and regulate what the dog is learning."},
+    {type:"mc",q:"Because dogs never stop learning, trainers must…",opts:["Control and regulate what the dog is learning","Prevent all unsupervised time","Only train indoors","Use punishment first"],a:0,src:"IMG_3852",why:"“We must understand how to control and regulate what the dog is learning.”"},
+    {type:"fib",q:"Imitation is using someone or something as a <span class='blank'>__________</span>.",acc:["model"],src:"IMG_3853",why:"Imitation — using someone or something as a model."},
+    {type:"mc",q:"How does the slide define emulation?",opts:["Copying the actions of another with an attempt to improve","Repeating a behavior for attention","Learning by trial and error","Freezing when unsure"],a:0,src:"IMG_3853",why:"Emulation — copying the actions of another with an attempt to improve."},
+    {type:"mc",q:"“Engages in a behavior because someone/something else is” defines…",opts:["Social facilitation","Imitation","Emulation","Shaping"],a:0,src:"IMG_3853",why:"That is social facilitation, the third form of social learning listed."},
+    {type:"mc",q:"Which pair of concepts can dogs easily understand?",opts:["Always & Never","Sometimes & Maybe","Yesterday & Tomorrow","Fast & Slow"],a:0,src:"IMG_3854",why:"Dogs easily grasp that a behavior is NEVER allowed or ALWAYS allowed."},
+    {type:"mc",q:"Which pair of concepts do dogs struggle with?",opts:["Sometimes & Maybe","Always & Never","Sit & Down","Come & Stay"],a:0,src:"IMG_3854",why:"Dogs have difficulty applying when they can sometimes engage in certain behaviors."},
+    {type:"tf",q:"Per the Dog Concepts slide, a rule that applies only sometimes is easy for a dog to follow.",a:false,src:"IMG_3854",why:"The opposite: sometimes-and-maybe rules are exactly what dogs find difficult."},
+    {type:"fib",q:"Active & Passive Learning are described as two distinct methods of <span class='blank'>__________</span>.",acc:["learning"],src:"IMG_3852",why:"The slide's subtitle: “Two distinct methods of learning.”"}
+  ]
+},
+{
+  id:"phases",
+  title:"Phases of Training & Techniques",
+  sources:["IMG_3855","IMG_3858"],
+  summary:"Training has a life-cycle of four phases — teaching, correction, proofing, maintenance — each with its own job, plus a toolbox of techniques: shaping, extinction, extinction burst, chaining and backchaining.",
+  points:[
+    "Teaching: often takes the longest — this is where the dog acquires the new behavior.",
+    "Correction: reinforcement is still vital, but the dog learns that compliance is not optional.",
+    "Proofing: a huge focus on the three D's — Distance, Duration and Distractions.",
+    "Maintenance: a critical phase often overlooked by professional trainers and typically assumed to be “the owner's job”.",
+    "The techniques listed: shaping, extinction, extinction burst, chaining, backchaining."
+  ],
+  questions:[
+    {type:"mc",q:"Which phase often takes the longest and is where the dog acquires the new behavior?",opts:["Teaching","Correction","Proofing","Maintenance"],a:0,src:"IMG_3855",why:"Teaching — the acquisition phase — usually takes the longest."},
+    {type:"mc",q:"During the correction phase…",opts:["Reinforcement is still vital, but the dog learns compliance is not optional","Reinforcement stops entirely","Only punishment is used","The dog chooses when to comply"],a:0,src:"IMG_3855",why:"Correction keeps reinforcement central while teaching that compliance is not optional."},
+    {type:"mc",q:"Proofing focuses hugely on the three D's, which are…",opts:["Distance, Duration and Distractions","Diet, Drive and Discipline","Down, Drop and Distance","Desire, Duty and Devotion"],a:0,src:"IMG_3855",why:"The three D's of proofing: Distance, Duration and Distractions."},
+    {type:"fib",q:"The three D's: Distance, Duration and <span class='blank'>__________</span>.",acc:["distractions"],src:"IMG_3855",why:"Distance, Duration and Distractions."},
+    {type:"mc",q:"Which phase is often overlooked and assumed to be only “the owner's job”?",opts:["Maintenance","Teaching","Proofing","Correction"],a:0,src:"IMG_3855",why:"Maintenance — critical, yet frequently left to the owner by professional trainers."},
+    {type:"tf",q:"The four phases of training are Teaching, Correction, Proofing and Maintenance.",a:true,src:"IMG_3855",why:"That is the slide's life-cycle of training, in order."},
+    {type:"mc",q:"Which of these is NOT on the Training Techniques list?",opts:["Luring","Shaping","Extinction Burst","Backchaining"],a:0,src:"IMG_3858",why:"The list reads: Shaping, Extinction, Extinction Burst, Chaining, Backchaining — no luring."},
+    {type:"fib",q:"Between Extinction and Chaining, the list names the Extinction <span class='blank'>__________</span>.",acc:["burst"],src:"IMG_3858",why:"Extinction Burst — the flare-up of a behavior when reinforcement stops."},
+    {type:"tf",q:"Backchaining appears on the course's list of training techniques.",a:true,src:"IMG_3858",why:"It is the last technique listed."},
+    {type:"mc",q:"The Phases of Training slide subtitles itself the life-cycle of…",opts:["Training","Learning","Obedience","Behavior"],a:0,src:"IMG_3855",why:"“The Life-Cycle of Training.”"},
+    {type:"mc",q:"In which phase does the dog learn that compliance is not optional?",opts:["Correction","Teaching","Maintenance","Proofing"],a:0,src:"IMG_3855",why:"That lesson belongs to the correction phase — with reinforcement still vital."}
+  ]
+},
+{
+  id:"sixsteps",
+  title:"Six Steps: Relationship & Behavior",
+  sources:["IMG_3860","IMG_3862","IMG_3863"],
+  summary:"The heart of the course: a six-step process — Relationship, Behavior, Plan, Prompt, ABC's, Manage — that makes sessions more productive, less confusing and more fun. Step 1 builds trust (dogs do not learn best through fear), and Step 2 demands total clarity about the behavior you want.",
+  points:[
+    "The six steps, in order: Relationship → Behavior → Plan → Prompt → ABC's → Manage.",
+    "Understanding the six steps provides clarity and confidence in every session; sessions become more productive, less confusing and — most importantly — more fun and engaging.",
+    "Step 1 — Establish a relationship: the dog needs to TRUST YOU; you and your dog should enjoy learning.",
+    "Spend more time early on and you will spend less time later fixing problems; relationship building takes time — it does not happen in one day.",
+    "Dogs DO NOT learn best through fear and intimidation; a positive, trusting relationship is the most critical component of success.",
+    "Step 2 — Understand the behavior: decide what to teach and be clear about the behavior WE WANT.",
+    "Ask whether it is physically possible and non-harming, and consider the dog's stage of development and capabilities; failure is part of the process.",
+    "If we don't clearly understand the behavior we want, it will be impossible for the dog to understand."
+  ],
+  questions:[
+    {type:"mc",q:"What is the correct order of the six steps?",opts:["Relationship, Behavior, Plan, Prompt, ABC's, Manage","Plan, Behavior, Relationship, ABC's, Prompt, Manage","Behavior, Relationship, Prompt, Plan, Manage, ABC's","Relationship, Plan, Behavior, Manage, Prompt, ABC's"],a:0,src:"IMG_3860",why:"The arrow sequence runs Relationship → Behavior → Plan → Prompt → ABC's → Manage."},
+    {type:"mc",q:"What does understanding the six steps promise for your sessions?",opts:["More productive, less confusing, more fun and engaging","Shorter but harsher sessions","Fewer treats needed","Guaranteed obedience in a week"],a:0,src:"IMG_3860",why:"“…more productive, less confusing and most importantly, more fun and engaging.”"},
+    {type:"mc",q:"Step 1 is established on one need: the dog needs to…",opts:["Trust you","Fear you","Depend on treats","Be tired"],a:0,src:"IMG_3862",why:"“Establish a Relationship — the dog needs to TRUST YOU.”"},
+    {type:"tf",q:"Dogs learn best through fear and intimidation.",a:false,src:"IMG_3862",why:"The slide states the opposite in capitals: dogs DO NOT learn best through fear & intimidation."},
+    {type:"mc",q:"“Spend more time early on” pays off how?",opts:["You will spend less time later fixing problems","The dog matures faster","You can skip proofing","Sessions can be longer later"],a:0,src:"IMG_3862",why:"Early relationship investment means less time later fixing problems."},
+    {type:"tf",q:"Relationship building can be completed in a single day if done well.",a:false,src:"IMG_3862",why:"“Relationship building takes time, it does not happen in one day.”"},
+    {type:"mc",q:"Step 1's caption calls a positive and trusting relationship…",opts:["The most critical component of success in dog training","A nice bonus","Something only pet owners need","Optional for working dogs"],a:0,src:"IMG_3862",why:"“Developing a positive and trusting relationship is the most critical component of success in dog training.”"},
+    {type:"mc",q:"Step 2 requires being clear about…",opts:["The behavior WE WANT","The dog's pedigree","The equipment brand","The session length"],a:0,src:"IMG_3863",why:"“We must be clear about the behavior WE WANT.”"},
+    {type:"mc",q:"Which checks does Step 2 apply to a candidate behavior?",opts:["Physically possible and non-harming, given the dog's stage of development and capabilities","Impressive to clients and quick to teach","Silent and invisible","Breed-standard approved"],a:0,src:"IMG_3863",why:"Is it physically possible and non-harming? Consider development stage and the dog's capabilities."},
+    {type:"tf",q:"Per Step 2, failure is part of the process.",a:true,src:"IMG_3863",why:"“Failure is part of the process” — expect it while building behaviors."},
+    {type:"mc",q:"If the trainer doesn't clearly understand the wanted behavior…",opts:["It will be impossible for the dog to understand","The dog will figure it out anyway","The ABC's fix it automatically","Only proofing suffers"],a:0,src:"IMG_3863",why:"Step 2's caption: unclear trainer → impossible for the dog to understand."}
+  ]
+},
+{
+  id:"planning",
+  title:"Step 3: Proper Planning",
+  sources:["IMG_3864","IMG_3865","IMG_3874"],
+  summary:"Failing to plan is planning to FAIL. Step 3 breaks every behavior into small identified steps (possibly planned backwards from the goal), asks the important questions before you begin — signal, expected step, what gets reinforced and what doesn't — and plans the reinforcers themselves, with the focus on catching the dog doing it right.",
+  points:[
+    "The banner over Step 3: Failing to Plan is Planning to FAIL.",
+    "Plan approximations: every behavior is broken down into small steps, and each step is identified.",
+    "The slide floats the shaping trick: begin at the end and work backwards?",
+    "Planning behavior shaping and understanding the correct successive approximations takes PRACTICE.",
+    "Important questions before you begin: What Sᴰ or signal will I give? What approximation step do I expect? Where, when and what response will I reinforce? What response will I NOT reinforce?",
+    "Spend time planning your reinforcers — what you will give when the animal does something correctly.",
+    "Catch them Doing it Right; focus on reinforcement / ignore mistakes."
+  ],
+  questions:[
+    {type:"fib",q:"“Failing to Plan is Planning to <span class='blank'>__________</span>.”",acc:["fail"],src:"IMG_3864",why:"The motto stamped across every Step 3 slide."},
+    {type:"mc",q:"“Plan approximations” means…",opts:["Every behavior is broken down into small steps, each identified","Guessing what the dog might do","Skipping steps the dog finds hard","Planning only the final behavior"],a:0,src:"IMG_3864",why:"Break the behavior into small steps and identify each one."},
+    {type:"mc",q:"Which shaping strategy does the planning slide float as a question?",opts:["Begin at the end and work backwards","Start in the middle","Train all steps at once","Let the dog pick the order"],a:0,src:"IMG_3864",why:"“Begin at the end and work backwards?” — the backchaining idea."},
+    {type:"mc",q:"Per the Step 3 caption, what does planning shaping and approximations take?",opts:["Practice","Luck","Expensive equipment","A second trainer"],a:0,src:"IMG_3864",why:"“…understanding the correct successive approximations takes PRACTICE!”"},
+    {type:"mc",q:"Which is one of the “Important Questions” before you begin?",opts:["What Sᴰ or signal will I give?","What collar should the dog wear?","How old is the dog?","What time is dinner?"],a:0,src:"IMG_3865",why:"The four questions start with the signal you will give."},
+    {type:"mc",q:"Another of the Important Questions asks…",opts:["What approximation step do I expect?","How many dogs can I train at once?","Which breed learns fastest?","When is the next competition?"],a:0,src:"IMG_3865",why:"Know exactly which approximation step you expect before the session."},
+    {type:"mc",q:"The final pair of Important Questions concern…",opts:["What response will and will NOT be reinforced (and where/when)","Which toys to buy","The dog's favorite food","The weather"],a:0,src:"IMG_3865",why:"“Where, when and what response will I reinforce? What response will I not reinforce?”"},
+    {type:"mc",q:"“Spend time planning your reinforcers” means deciding…",opts:["What you will give when the animal does something correctly","How to correct mistakes","Which punishments to use","How long the session lasts"],a:0,src:"IMG_3874",why:"The parenthesis spells it out: what will you give when the animal does something correctly."},
+    {type:"fib",q:"“Catch them Doing it <span class='blank'>__________</span>.”",acc:["right"],src:"IMG_3874",why:"The classic reinforcement mindset: catch them doing it right."},
+    {type:"mc",q:"The slide pairs “focus on reinforcement” with…",opts:["Ignore mistakes","Punish mistakes","Record mistakes","Repeat mistakes"],a:0,src:"IMG_3874",why:"“Focus on reinforcement / ignore mistakes.”"},
+    {type:"tf",q:"Step 3 tells trainers to concentrate on punishing every mistake.",a:false,src:"IMG_3874",why:"The opposite — focus on reinforcement and ignore mistakes."}
+  ]
+},
+{
+  id:"promptabc",
+  title:"Steps 4–5: Prompting & the ABC's",
+  sources:["IMG_3876","IMG_3878","IMG_3879","IMG_3880","IMG_3881"],
+  summary:"Step 4 recruits the environment: prompt with a similar behavior, context or time of day, and use very tiny approximations from scratch. Step 5 is the engine room — Antecedent, Behavior, Consequence — with the antecedent kept clear, concise and consistent, the behavior measured in frequency, intensity and duration, and the consequence (operant conditioning's four quadrants) driving it all.",
+  points:[
+    "Prompt when possible — use a “like” behavior, the environment or the time of day, and ask: is there a behavior this dog already knows that is close to what I want?",
+    "Starting from scratch, use very tiny approximations.",
+    "Step 4's caption: take advantage of any environmental or contextual prompts that help the dog understand what is expected.",
+    "The ABC's: Antecedent (the Sᴰ — keep signals consistent) triggers the behavioral response; Behavior establishes the criterion — what we want and how we expect it done; Consequence (timing, latency, placement, unpredictable) DRIVES behavior.",
+    "Antecedents must be clear, concise and consistent — beware talking too much or using other audibles; be quiet when signals are given.",
+    "Behavior is measured by frequency (occurrences in a given time), intensity (energy exerted during execution) and duration (time the behavior lasts) — plus approximations.",
+    "The consequence menu is operant conditioning: positive reinforcement, negative reinforcement, positive punishment, negative punishment — weighing speed versus stress."
+  ],
+  questions:[
+    {type:"mc",q:"Prompting when possible means using…",opts:["A “like” behavior, the environment or the time of day","Only food lures","Physical placement","Louder commands"],a:0,src:"IMG_3876",why:"Prompt with a similar behavior, a context or a time of day the dog already links to the action."},
+    {type:"mc",q:"The key prompting question is…",opts:["Is there a behavior this dog already knows that is close to what I want?","How loud can I give the cue?","Which treat is most expensive?","Can another dog demonstrate?"],a:0,src:"IMG_3876",why:"Start from something the dog already knows that resembles the target."},
+    {type:"mc",q:"Starting completely from scratch, the slide advises…",opts:["Very tiny approximations","Skipping approximations","One big leap","Waiting for maturity"],a:0,src:"IMG_3876",why:"“Starting from scratch use very tiny approximations.”"},
+    {type:"mc",q:"Step 4's caption says environmental and contextual prompts help the dog…",opts:["Better understand what is expected","Get more exercise","Avoid distractions forever","Skip the teaching phase"],a:0,src:"IMG_3876",why:"“…help your dog better understand what is expected.”"},
+    {type:"mc",q:"In the ABC's, the Antecedent (Sᴰ)…",opts:["Triggers the behavioral response","Rewards the behavior","Measures the behavior","Ends the session"],a:0,src:"IMG_3878",why:"Antecedent (keep signals consistent) — triggers behavioral response."},
+    {type:"mc",q:"“Establish criterion” under Behavior means defining…",opts:["What we want the animal to do and how we expect them to do it","How many sessions per week","The reward size","Who holds the leash"],a:0,src:"IMG_3878",why:"Behavior (establish criterion): what is it we want and how do we expect it done."},
+    {type:"mc",q:"The Consequence line lists which qualities?",opts:["Timing, latency, placement, unpredictable","Color, size, shape, sound","Speed, strength, style, stamina","Morning, noon, evening, night"],a:0,src:"IMG_3878",why:"Consequence (timing, latency, placement, unpredictable) — and it drives behavior."},
+    {type:"fib",q:"Per the ABC slide, consequence <span class='blank'>__________</span> behavior.",acc:["drives"],src:"IMG_3878",why:"The bold line at the bottom: “Drives behavior.”"},
+    {type:"mc",q:"A good antecedent is…",opts:["Clear, concise and consistent","Loud, long and frequent","Rare, random and rich","Soft, slow and subtle"],a:0,src:"IMG_3879",why:"The three C's of the antecedent: clear, concise, consistent."},
+    {type:"mc",q:"“Concise” warns specifically against…",opts:["Talking too much and using other audibles — be quiet when signals are given","Using hand signals","Training in silence","Short cues"],a:0,src:"IMG_3879",why:"Talking too much or extra sounds muddy the signal; be quiet when signals are given."},
+    {type:"mc",q:"Behavior is measured on the slide by…",opts:["Frequency, intensity and duration","Speed, weight and height","Age, breed and drive","Trials, errors and wins"],a:0,src:"IMG_3880",why:"Frequency (occurrences in a given time), intensity (energy exerted), duration (time occurring) — plus approximations."},
+    {type:"mc",q:"Under Consequence, the operant-conditioning menu lists…",opts:["Positive/negative reinforcement and positive/negative punishment","Only positive reinforcement","Escape and avoidance only","Classical conditioning"],a:0,src:"IMG_3881",why:"All four quadrants appear, with the closing note “Speed v Stress”."}
+  ]
+},
+{
+  id:"sessions",
+  title:"Step 6: Sessions, Cycles & Excellence",
+  sources:["IMG_3883","IMG_3884","IMG_3885","IMG_3886","IMG_3887"],
+  summary:"Reinforcement compounds — the example dog offers the behavior on 1 of 4 attempts in session one and 4 of 4 by session four. Step 6 makes every session short, positive, fun, easy and ended on a high note; the ideal cycle is give the signal, wait, apply the consequence, repeat; when a session fails the honest question is dog or trainer; and excellence comes from high reinforcement frequency, short latency, unpredictability and secondary reinforcers.",
+  points:[
+    "The cumulative effect of reinforcement: session #1 = offered 1 of 4 attempts, #2 = 2 of 4, #3 = 3 of 4, #4 = 4 of 4.",
+    "Manage each session to be short, positive, fun, easy, and to end on a high note — you are responsible for making it PRODUCTIVE & FUN.",
+    "Short because if training is fun, animals learn to pay attention longer; never train angry or upset, or learning with you becomes unpleasant; end high and the dog will want to continue performing.",
+    "Step 6's caption: keep the dog engaged so it doesn't become bored with mundane or monotonous behaviors.",
+    "The ideal training cycle: GIVE the Sᴰ (signal) → WAIT for the behavior response → APPLY the consequence → repeat, evaluating each cycle.",
+    "When a session fails, the slide asks: who is to blame — the dog, or the trainer? And what next?",
+    "Keys to excellence: keep reinforcement frequency high and ratios low; keep latency short between criteria and reinforcement; stay unpredictable — variety interests dogs; and build new secondary reinforcers by pairing them with ones the dog already likes."
+  ],
+  questions:[
+    {type:"mc",q:"What does the cumulative-effect example show across four sessions?",opts:["The behavior offered on 1, then 2, then 3, then 4 of 4 attempts","The behavior disappearing","Constant 2-of-4 performance","Random results"],a:0,src:"IMG_3883",why:"Session #1 = 1 of 4 attempts, rising each session to 4 of 4 — reinforcement compounds."},
+    {type:"mc",q:"Step 6 wants every session to be…",opts:["Short, positive, fun, easy, ending on a high note","Long, serious, strict, hard, ending when tired","Unpredictable in mood","As quiet as possible"],a:0,src:"IMG_3884",why:"The five session qualities listed — and you are responsible for productive & fun."},
+    {type:"tf",q:"Training while angry or upset is fine if the plan is followed.",a:false,src:"IMG_3884",why:"“Never train angry/upset — learning with you becomes unpleasant.”"},
+    {type:"mc",q:"Why end on a high note?",opts:["The dog will want to continue performing the behavior","It shortens tomorrow's session","It saves treats","It impresses clients"],a:0,src:"IMG_3884",why:"End high → the dog wants to keep performing."},
+    {type:"mc",q:"Why keep sessions short?",opts:["If training is fun, animals learn to pay attention longer","Dogs cannot learn after 5 minutes","Short sessions need no plan","To fit more dogs per day"],a:0,src:"IMG_3884",why:"Short + fun = growing attention span, per the slide."},
+    {type:"mc",q:"Step 6's caption: keep the dog engaged so that it doesn't…",opts:["Become bored with mundane or monotonous behaviors","Learn too fast","Bond with someone else","Expect food every time"],a:0,src:"IMG_3884",why:"Engagement prevents boredom with repetitive behaviors."},
+    {type:"mc",q:"The ideal training cycle runs…",opts:["Give the Sᴰ → wait for the response → apply the consequence → repeat","Apply consequence → give signal → wait","Wait → consequence → signal","Signal → consequence → wait → end"],a:0,src:"IMG_3885",why:"Give, wait, apply, repeat — evaluating each cycle."},
+    {type:"fib",q:"Ideal cycle: give the Sᴰ, <span class='blank'>__________</span> for the behavior response, apply consequence, repeat.",acc:["wait"],src:"IMG_3885",why:"WAIT is the discipline in the middle of the cycle."},
+    {type:"mc",q:"When a training session fails, the slide asks who is to blame between…",opts:["The dog or the trainer","The weather or the venue","The breeder or the owner","The equipment or the treats"],a:0,src:"IMG_3886",why:"“Who is to blame? The Dog? or The Trainer? What next?”"},
+    {type:"mc",q:"The frequency key to excellence says…",opts:["Keep reinforcement frequency high and ratios low","Keep frequency low and ratios high","Reinforce once per session","Never vary frequency"],a:0,src:"IMG_3887",why:"High frequency of reinforcement, low ratios."},
+    {type:"mc",q:"The latency key says to keep latency short between…",opts:["Criteria and reinforcement","Sessions","Meals and training","Cue and correction"],a:0,src:"IMG_3887",why:"“Keep latency as short as possible between criteria and reinforcement.”"},
+    {type:"mc",q:"How does the slide say to build a NEW secondary reinforcer?",opts:["Show it to the dog and pair it with one they already like","Use it alone until it works","Hide it in food","Wait for the dog to invent it"],a:0,src:"IMG_3887",why:"Pair the new secondary reinforcer with a liked one — and vary reinforcers, since variety interests dogs."}
+  ]
+}
+];
+
 const TOPICS = LT_TOPICS.map(t=>Object.assign({}, t, {deck:"learning", deckName:"Learning Theory"}))
   .concat(PUP_TOPICS.map(t=>Object.assign({}, t, {deck:"puppy", deckName:"Puppies"})))
-  .concat(HDL_TOPICS.map(t=>Object.assign({}, t, {deck:"book", deckName:"How Dogs Learn"})));
+  .concat(HDL_TOPICS.map(t=>Object.assign({}, t, {deck:"book", deckName:"How Dogs Learn"})))
+  .concat(FUND_TOPICS.map(t=>Object.assign({}, t, {deck:"fund", deckName:"Training Fundamentals"})));
 
 const MIXED_SIZE = 20;
 const DRILL_SIZE = 12;
@@ -1446,7 +1625,13 @@ const SECTIONS = {
   respondent2:["The four steps","The four steps","The four steps","The four steps","The four steps","The four steps","Born-in reflexes","Born-in reflexes","Born-in reflexes","Born-in reflexes","Born-in reflexes","Born-in reflexes"],
   assess:["Reinforcer assessment","Reinforcer assessment","Reinforcer assessment","Reinforcer assessment","Reinforcer assessment","Punisher families","Punisher families","Punisher families","Punisher families","Punisher families","Punisher families"],
   funcanal:["Five functions","Five functions","Five functions","Five functions","Five functions","Five functions","Five functions","The questionnaire","The questionnaire","Diagnostics","Diagnostics","Diagnostics"],
-  medcraft:["Medical causes","Medical causes","Medical causes","Medical causes","Medical causes","Trainer's checklist","Trainer's checklist","Trainer's checklist","Trainer's checklist","Backward chaining","Backward chaining","Backward chaining"]
+  medcraft:["Medical causes","Medical causes","Medical causes","Medical causes","Medical causes","Trainer's checklist","Trainer's checklist","Trainer's checklist","Trainer's checklist","Backward chaining","Backward chaining","Backward chaining"],
+  howlearn:["Active vs. passive","Active vs. passive","Active vs. passive","Active vs. passive","Social learning","Social learning","Social learning","Dog concepts","Dog concepts","Dog concepts","Active vs. passive"],
+  phases:["The four phases","The four phases","The four phases","The four phases","The four phases","The four phases","Techniques","Techniques","Techniques","The four phases","The four phases"],
+  sixsteps:["The process","The process","Step 1 — Relationship","Step 1 — Relationship","Step 1 — Relationship","Step 1 — Relationship","Step 1 — Relationship","Step 2 — Behavior","Step 2 — Behavior","Step 2 — Behavior","Step 2 — Behavior"],
+  planning:["Plan the steps","Plan the steps","Plan the steps","Plan the steps","Important questions","Important questions","Important questions","Plan reinforcers","Plan reinforcers","Plan reinforcers","Plan reinforcers"],
+  promptabc:["Step 4 — Prompting","Step 4 — Prompting","Step 4 — Prompting","Step 4 — Prompting","The ABC model","The ABC model","The ABC model","The ABC model","A, B, C in detail","A, B, C in detail","A, B, C in detail","A, B, C in detail"],
+  sessions:["Cumulative reinforcement","Managing sessions","Managing sessions","Managing sessions","Managing sessions","Managing sessions","The training cycle","The training cycle","When sessions fail","Keys to excellence","Keys to excellence","Keys to excellence"]
 };
 TOPICS.forEach(t => t.questions.forEach((q,i) => {
   q.qid = t.id + "#" + i;
@@ -2039,7 +2224,14 @@ const SHORT = {
   respondent2:"Respondent Steps",
   assess:"Reinforcers & Punishers",
   funcanal:"Functional Analysis",
-  medcraft:"Medical & Chaining"
+  medcraft:"Medical & Chaining",
+  // Training Fundamentals
+  howlearn:"Ways Dogs Learn",
+  phases:"Phases & Techniques",
+  sixsteps:"Six Steps & Trust",
+  planning:"Proper Planning",
+  promptabc:"Prompting & ABC's",
+  sessions:"Sessions & Excellence"
 };
 
 function navLabel(text){
@@ -2049,7 +2241,7 @@ function navLabel(text){
   nav.appendChild(d);
 }
 
-const DECKS = [{key:"learning", name:"Learning Theory"}, {key:"puppy", name:"Puppies"}, {key:"book", name:"How Dogs Learn"}];
+const DECKS = [{key:"learning", name:"Learning Theory"}, {key:"puppy", name:"Puppies"}, {key:"book", name:"How Dogs Learn"}, {key:"fund", name:"Training Fundamentals"}];
 
 function renderNav(){
   nav.innerHTML = "";
@@ -2312,7 +2504,29 @@ const SLIDES = {
   "IMG_3836":{t:"Mouthing & Biting",body:"- Mouthing — Dogs naturally explore their environment with their mouth; After housebreaking, continue to monitor puppy\n- Bite inhibition — Puppies learn from littermates when it is too much; Must be taught that biting people is painful; Yelp; Fold puppy's lip over teeth"},
   "IMG_3837":{t:"Chewing",body:"- Teaching the “leave it” — Hold treat within reach; Say “leave it”, wait; When puppy stops pawing and stands still, praise and give treat\n- Chewing — Puppies need to chew; Provide proper chew toy alternatives; Keep an eye on the puppy"},
   "IMG_3838":{t:"Adolescence",body:"- Like puppyhood, adolescence is natural and temporary\n- Expect some misbehavior"},
-  "IMG_3841":{t:"Separation Anxiety",body:"- Separation Anxiety vs. Boredom\n- Managing Separation Anxiety:\n    - Start with short breaks from the puppy\n    - Make preparations to leave while ignoring the puppy, especially if it cries and barks\n    - Step outside briefly, then come back\n    - Do not make a big deal about coming home\n    - Greet the puppy in a low-key manner\n    - Gradually extend the time away"}
+  "IMG_3841":{t:"Separation Anxiety",body:"- Separation Anxiety vs. Boredom\n- Managing Separation Anxiety:\n    - Start with short breaks from the puppy\n    - Make preparations to leave while ignoring the puppy, especially if it cries and barks\n    - Step outside briefly, then come back\n    - Do not make a big deal about coming home\n    - Greet the puppy in a low-key manner\n    - Gradually extend the time away"},
+
+  "IMG_3852":{t:"Active & Passive Learning",body:"Two distinct methods of learning\n\nAs trainers, we must understand that dogs are constantly learning whether they are in the presence of humans or not. As a result, we must understand how to control and regulate what the dog is learning.\n\nSit — Active Learning\nJump — Active Learning\nRoll over — Active Learning\n\nOpening doors — Passive Learning\nLifting toilet seat — Passive Learning\nActivating ice maker — Passive Learning"},
+  "IMG_3853":{t:"Social Learning",body:"Imitation — using someone or something as a model\n\nEmulation — copying the actions of another with an attempt to improve\n\nSocial Facilitation — engages in a behavior because someone/something else is"},
+  "IMG_3854":{t:"Dog Concepts",body:"Concepts that dogs can understand\n\nALWAYS & NEVER\n    Dogs can easily understand that they are NEVER allowed or are ALWAYS allowed to engage in behaviors.\n\nSOMETIMES & MAYBE\n    Dogs have difficulty applying when they can sometimes engage in certain behaviors."},
+  "IMG_3855":{t:"Phases of Training",body:"The Life-Cycle of Training\n\nTeaching\n    This phase often takes the longest and is where the dog acquires the new behavior.\n\nCorrection\n    During the correction phase of training, reinforcement is still vital, but the dog learns that compliance is not optional.\n\nProofing\n    Proofing is the phase in which there is a huge focus on the three D's — Distance, Duration and Distractions.\n\nMaintenance\n    This critical phase is often overlooked by many professional trainers and is typically assumed to only be “the owner's job”."},
+  "IMG_3858":{t:"Training Techniques",body:"Shaping\n\nExtinction\n\nExtinction Burst\n\nChaining\n\nBackchaining"},
+  "IMG_3860":{t:"Training a Behavior — The Six Steps",body:"Six Steps to Success in Building Behaviors\n\nTHE PROCESS: By understanding the Six Steps to Success in Building Behaviors we can provide clarity and confidence in every training session. By using this process our resulting sessions will be more productive, less confusing and most importantly, more fun and engaging.\n\nRelationship → Behavior → Plan → Prompt → ABC's → Manage"},
+  "IMG_3862":{t:"Step 1 — Establish a Relationship",body:"The dog needs to TRUST YOU\n\n- You and your dog should enjoy learning\n- Spend more time early on; You will spend less time later fixing problems\n- Set up sessions to build trust / relationship\n- Relationship building takes time, it does not happen in one day\n- Dogs DO NOT learn best through fear & intimidation\n\nSTEP 1 — Developing a positive and trusting relationship is the most critical component of success in dog training."},
+  "IMG_3863":{t:"Step 2 — Understanding the Behavior",body:"We must be clear about the behavior WE WANT\n\n- Decide on the behavior that you want to teach.\n- Is it physically possible and non-harming?\n- We must consider the stage of development & the dogs' capabilities\n- Failure is part of the process\n\nSTEP 2 — If we don't clearly understand the behavior that we want the dog to perform, it will be impossible for the dog to understand!"},
+  "IMG_3864":{t:"Step 3 — Proper Planning",body:"Failing to Plan is Planning to FAIL\n\nPlan approximations\n- Every behavior is broken down into small steps\n- Identify each step\n- Begin at the end and work backwards?\n\nSTEP 3 — Planning behavior shaping and understanding the correct successive approximations takes PRACTICE!"},
+  "IMG_3865":{t:"Before You Begin — Important Questions",body:"Facilitate Successful Outcomes\n\nImportant Questions:\n- What Sᴰ or signal will I give?\n- What approximation step do I expect?\n- Where, when and what response will I reinforce?\n- What response will I not reinforce?"},
+  "IMG_3874":{t:"Before You Begin — Plan Your Reinforcers",body:"- Spend time planning your reinforcers (what will you give when the animal does something correctly)\n\n- Catch them Doing it Right\n\n- Focus on reinforcement / ignore mistakes"},
+  "IMG_3876":{t:"Step 4 — Prompting when Possible",body:"Utilize Context and Environment FOR SUCCESS\n\n- Prompt when possible (use a “like” behavior, environment or time of day)\n- Is there a behavior this dog already knows that is close to what I want?\n- Starting from scratch use very tiny approximations\n\nSTEP 4 — Take advantage of any environmental or contextual prompts that may be used to help your dog better understand what is expected."},
+  "IMG_3878":{t:"Step 5 — Understand the ABC's of Training",body:"Building Solid Behaviors is simply ABC\n\nAntecedent (Sᴰ) (Keep signals consistent)\n    Triggers behavioral response\n\nBehavior (establish criterion)\n    What is it that we want the animal to do and how do we expect them to do it?\n\nConsequence (timing, latency, placement, unpredictable)\n\nDrives behavior\n\nSTEP 5 — Effective Dog Trainers understand how to apply the ABC's of Training in building sound and repeatable behaviors."},
+  "IMG_3879":{t:"ABC's — Antecedent",body:"The Foundation for Learning\n\nANTECEDENT\n\nClear\n\nConcise\n    Talking too much\n    Using other audibles\n    Be quiet when signals are given\n\nConsistent"},
+  "IMG_3880":{t:"ABC's — Behavior",body:"The Foundation for Learning\n\nBEHAVIOR\n\nFrequency — occurrences of behavior during a given time\n\nIntensity — degree of energy exerted during execution\n\nDuration — amount of time occurring during behavior\n\nAPPROXIMATIONS"},
+  "IMG_3881":{t:"ABC's — Consequence",body:"The Foundation for Learning\n\nCONSEQUENCE\n\nOPERANT CONDITIONING\n    Positive Reinforcement\n    Negative Reinforcement\n    Positive Punishment\n    Negative Punishment\n\nSpeed v Stress"},
+  "IMG_3883":{t:"Reinforcement — The Cumulative Effect",body:"Building Solid Behaviors is simply ABC\n\nThe cumulative effect of reinforcement\n\nSession #1 = offered 1 of 4 attempts\nSession #2 = offered 2 of 4 attempts\nSession #3 = offered 3 of 4 attempts\nSession #4 = offered 4 of 4 attempts"},
+  "IMG_3884":{t:"Step 6 — Managing Each Training Session",body:"You are responsible for ensuring each session is PRODUCTIVE & FUN\n\nShort\n    If training is fun, animals will learn to pay attention longer\n\nPositive\n    Never train angry/upset\n    Learning with you becomes unpleasant\n\nFun\n\nEasy\n\nEnd on a high note\n    Will want to continue performing behavior\n\nSTEP 6 — Be sure to keep the dog engaged so that they don't become bored with performing mundane or monotonous behaviors."},
+  "IMG_3885":{t:"Ideal Training Cycle",body:"Give the Sᴰ (signal)\n\nWait for the behavior response\n\nApply consequence\n\nRepeat, evaluating each cycle"},
+  "IMG_3886":{t:"Training Session Failures",body:"Who is to blame?\n\n    The Dog?\n\n    or\n\n    The Trainer?\n\nWhat next?"},
+  "IMG_3887":{t:"Keys to Training Excellence",body:"HIGH FREQUENCY OF REINFORCEMENT\n    Keep reinforcement frequency high and keep ratios low.\n\nSHORT LATENCY\n    Keep latency as short as possible between criteria and reinforcement.\n\nUNPREDICTABILITY\n    Variety is interesting to dogs. Consider varying reinforcers.\n\nUSE SECONDARY REINFORCERS\n    Show the dog a new secondary reinforcer and pair it with one they like."}
 };
 
 function studyHTML(){
@@ -2320,7 +2534,7 @@ function studyHTML(){
     '<header class="studyhero">'+
       '<div class="kicker">Study · every slide</div>'+
       '<h1>The Training Center</h1>'+
-      '<p class="summary">All three decks on one page. Pick a topic on the left to jump straight to it — or just scroll. Your course decks show each slide recreated word-for-word; the How Dogs Learn deck distills the book&rsquo;s figures into key points, reworded in our own way.</p>'+
+      '<p class="summary">All four decks on one page. Pick a topic on the left to jump straight to it — or just scroll. Your course decks show each slide recreated from your class photos; the How Dogs Learn deck distills the book&rsquo;s figures into key points, reworded in our own way.</p>'+
     '</header>';
   DECKS.forEach(dk=>{
     const group = TOPICS.filter(t=>t.deck===dk.key);

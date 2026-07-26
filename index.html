@@ -2338,6 +2338,7 @@ function studyHTML(){
       '<div class="dk">Deck</div>'+
       '<h3>'+esc(dk.name)+'</h3>'+
       '<div class="dmeta">'+group.length+' topics · '+(slides? slides+' slides' : deckQ+' questions')+'</div>'+
+      '<div class="btnrow" style="margin-top:16px"><button class="btn" data-deckquiz="'+dk.key+'">Quiz — all of '+esc(dk.name)+' · '+Math.min(MIXED_SIZE,deckQ)+' of '+deckQ+' questions</button></div>'+
     '</div>';
     group.forEach((t,i)=>{
       h += '<section class="studysec" id="sec-'+t.id+'" data-id="'+t.id+'">'+
@@ -2357,7 +2358,6 @@ function studyHTML(){
       if(t.note) h += '<div class="note">'+esc(t.note)+'</div>';
       h += '<div class="secfoot">'+
         '<span class="srcs">'+(slideCards.length? slideCards.length+' slide'+(slideCards.length===1?'':'s')+' in this topic' : esc(t.srcnote || 'Drawn from the lecture notes'))+'</span>'+
-        '<button class="btn ghost sm" data-quiz="'+t.id+'">Practice · '+t.questions.length+' q</button>'+
       '</div>'+
       '</section>';
     });
@@ -2368,8 +2368,8 @@ function studyHTML(){
 
 function showStudy(scrollToId){
   main.innerHTML = studyHTML();
-  main.querySelectorAll("[data-quiz]").forEach(b=>{
-    b.onclick = ()=>{ const t=TOPICS.find(x=>x.id===b.dataset.quiz); if(t) startQuiz(t.questions,t.id,t.title); };
+  main.querySelectorAll("[data-deckquiz]").forEach(b=>{
+    b.onclick = ()=> startDeckQuiz(b.dataset.deckquiz);
   });
   initSpy();
   renderNav();
@@ -2383,6 +2383,23 @@ function showStudy(scrollToId){
 }
 
 function ensureStudy(){ if(!document.getElementById("studywrap")) showStudy(); }
+
+/* deck-wide quiz: a fresh random draw from every chapter of one deck */
+function startDeckQuiz(key){
+  const dk = DECKS.find(d=>d.key===key);
+  if(!dk) return;
+  startQuiz(drawMixed("deck:"+key), "__deckq:deck:"+key, dk.name+" — whole-deck quiz");
+}
+
+/* jump back to a deck's band on the study page */
+function goDeck(key){
+  document.getElementById("aside").classList.remove("open");
+  ensureStudy();
+  const el = document.getElementById("deck-"+key);
+  if(el) el.scrollIntoView({block:"start"});
+  const first = TOPICS.find(t=>t.deck===key);
+  if(first) setActiveNav(first.id);
+}
 
 /* jump to a topic's slide from the sidebar / map, mounting study first if needed */
 function goStudy(id){
@@ -3279,12 +3296,14 @@ function showResult(){
   if($("#retrywrong")) $("#retrywrong").onclick = ()=> startQuiz(shuffle(wrongCopy), id, title, true);
   if($("#again")) $("#again").onclick = ()=>{
     if(id.startsWith("__mixed")) startQuiz(drawMixed(scopeOf(id)), id, title);
+    else if(id.startsWith("__deckq")) startQuiz(drawMixed(scopeOf(id)), id, title);
     else if(id.startsWith("__drill")) startQuiz(weakPool(scopeOf(id)), id, title, true);
     else if(id==="__custom") startQuiz(buildCustomPool(), id, title, true);
     else startQuiz(qsCopy, id, title);
   };
   $("#back").onclick = ()=>
     id.startsWith("__mixed") ? showMixedIntro() :
+    id.startsWith("__deckq") ? goDeck(scopeOf(id).slice(5)) :
     id.startsWith("__drill") ? showDrillIntro() :
     id==="__custom" ? showBuilder() :
     id==="__due" ? showDueIntro() : goStudy(id);

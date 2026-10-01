@@ -1,19 +1,19 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <meta charset="utf-8">
 <title>Scent Room</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bagel+Fat+One&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bagel+Fat+One&family=Bangers&family=Dela+Gothic+One&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
 :root{
   --ground:#D5DDE1; --card:#FBFAF6; --card-2:#EDEAE2; --card-3:#DDD8CC;
-  --ink:#1E2A33; --ink-2:#4F5E69; --ink-3:#86939D; --line:#C8CFD4;
+  --ink:#1E2A33; --ink-2:#4F5E69; --ink-3:#86939D; --line:#C8CFD4; --grid:#C8CFD4;
   --hot:#D6412A; --warm:#EDB02E; --tag:#D6448F; --on-accent:#FFFFFF; --focus:#2F5DA8;
   --tape:rgba(237,176,46,.55); --shade:24 38 52;
   --scene-bg:#DCE3E6; --scene-floor:#F3EEE3; --scene-floor-2:#E9E2D3; --scene-wall-a:#EEF1F2; --scene-wall-b:#F4ECDF; --scene-base:#C7A677;
   --scene-pencil:#5A6670; --scene-door:#8C6A4A; --scene-arrow:#FFFFFF;
   --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E");
   --display:"Bagel Fat One","Arial Rounded MT Bold","Trebuchet MS",system-ui,sans-serif;
+  --sfx:"Bangers","Impact","Arial Black",sans-serif;
   --body:"Atkinson Hyperlegible","Segoe UI",system-ui,-apple-system,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
@@ -21,7 +21,7 @@
   :root:not([data-theme="light"]){
     color-scheme:dark;
     --ground:#121920; --card:#1E272F; --card-2:#172028; --card-3:#0D1318;
-    --ink:#ECEFF1; --ink-2:#A6B2BB; --ink-3:#6F7C87; --line:#33404B;
+    --ink:#ECEFF1; --ink-2:#A6B2BB; --ink-3:#6F7C87; --line:#33404B; --grid:#33404B;
     --hot:#F0664D; --warm:#F2C14E; --tag:#F27BB8; --on-accent:#0F151A; --focus:#8FB4F0; --tape:rgba(242,193,78,.32); --shade:0 0 0;
     --scene-bg:#141B22; --scene-floor:#CDC6B8; --scene-floor-2:#BFB7A7; --scene-wall-a:#B9C3CA; --scene-wall-b:#C6BAA6; --scene-base:#7C6444;
     --scene-pencil:#9AA6B0; --scene-door:#6E523A; --scene-arrow:#F4F1EA;
@@ -30,10 +30,24 @@
 :root[data-theme="dark"]{
   color-scheme:dark;
   --ground:#121920; --card:#1E272F; --card-2:#172028; --card-3:#0D1318;
-  --ink:#ECEFF1; --ink-2:#A6B2BB; --ink-3:#6F7C87; --line:#33404B;
+  --ink:#ECEFF1; --ink-2:#A6B2BB; --ink-3:#6F7C87; --line:#33404B; --grid:#33404B;
   --hot:#F0664D; --warm:#F2C14E; --tag:#F27BB8; --on-accent:#0F151A; --focus:#8FB4F0; --tape:rgba(242,193,78,.32); --shade:0 0 0;
   --scene-bg:#141B22; --scene-floor:#CDC6B8; --scene-floor-2:#BFB7A7; --scene-wall-a:#B9C3CA; --scene-wall-b:#C6BAA6; --scene-base:#7C6444;
   --scene-pencil:#9AA6B0; --scene-door:#6E523A; --scene-arrow:#F4F1EA;
+}
+/* Manga look: black ink on white paper, red and yellow spot colour. It is deliberately
+   light-only, like a printed page, so it overrides both dark blocks above. */
+:root[data-style="manga"]{
+  color-scheme:light;
+  --ground:#F4F2EC; --card:#FFFFFF; --card-2:#F1EFEA; --card-3:#16171A;
+  --ink:#121316; --ink-2:#3A3D43; --ink-3:#7B7F86; --line:#121316; --grid:#D3D2CD;
+  --hot:#E0261B; --warm:#FFD21F; --tag:#E0261B; --on-accent:#FFFFFF; --focus:#1F5BD8;
+  --tape:transparent; --shade:18 19 22;
+  --scene-bg:#FFFFFF; --scene-floor:#F6F1E6; --scene-floor-2:#EAE3D3; --scene-wall-a:#F7F7F5; --scene-wall-b:#FBF3E4; --scene-base:#121316;
+  --scene-pencil:#121316; --scene-door:#B07A4A; --scene-arrow:#FFFFFF;
+  --tone:radial-gradient(circle,rgb(18 19 22 / .13) 1px,transparent 1.5px);
+  --grain:none;
+  --display:"Dela Gothic One","Arial Black","Trebuchet MS",system-ui,sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -203,6 +217,51 @@ h3{margin:0}
 .notes p{margin:0}
 .notes b{color:var(--ink)}
 
+/* ---------- style switch ---------- */
+.look{display:flex;align-items:center;gap:6px;font:600 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.look .btn{text-transform:none;letter-spacing:0}
+
+/* ---------- manga treatment ---------- */
+[data-style="manga"] .paperOnly{display:none}
+[data-style="manga"] body{background-color:var(--ground);background-image:var(--tone);background-size:7px 7px}
+[data-style="manga"] .sheet,[data-style="manga"] .stat{background:var(--card);border:3px solid var(--ink);border-radius:0;box-shadow:6px 6px 0 var(--ink)}
+[data-style="manga"] .stat{border-width:2.5px;box-shadow:4px 4px 0 var(--ink)}
+[data-style="manga"] .sheet.stack::before,[data-style="manga"] .tape{display:none}
+[data-style="manga"] .top{position:relative;padding:18px 0 6px}
+[data-style="manga"] .burst{position:absolute;left:-40px;top:-30px;width:min(560px,90vw);height:230px;pointer-events:none;z-index:-1;
+  background:repeating-conic-gradient(from 0deg at 34% 62%,rgb(18 19 22 / .16) 0deg 1.4deg,transparent 1.4deg 6deg);
+  -webkit-mask:radial-gradient(ellipse 60% 70% at 34% 62%,transparent 28%,#000 30%,transparent 72%);mask:radial-gradient(ellipse 60% 70% at 34% 62%,transparent 28%,#000 30%,transparent 72%)}
+[data-style="manga"] h1{font-weight:400;letter-spacing:.02em;color:var(--ink);text-shadow:4px 4px 0 var(--warm),-1px -1px 0 var(--card),1px -1px 0 var(--card),-1px 1px 0 var(--card),1px 1px 0 var(--card);transform:rotate(-1.5deg);transform-origin:left bottom}
+[data-style="manga"] .eyebrow{display:inline-block;background:var(--ink);color:var(--card);padding:5px 8px}
+[data-style="manga"] .lede{background:var(--card);border:2.5px solid var(--ink);border-radius:18px;padding:12px 16px;position:relative;color:var(--ink)}
+[data-style="manga"] .lede::after{content:"";position:absolute;left:28px;bottom:-14px;width:18px;height:14px;background:var(--card);border:2.5px solid var(--ink);border-top:0;border-left:0;transform:skewX(-35deg)}
+[data-style="manga"] h2{font-weight:400}
+[data-style="manga"] .tab{border:2.5px solid var(--ink);border-bottom:0;border-radius:0;box-shadow:none;background:var(--card-2);margin-bottom:-3px}
+[data-style="manga"] .tab[aria-checked="true"]{background:var(--ink);color:var(--card)}
+[data-style="manga"] .stage{border-top-left-radius:0}
+[data-style="manga"] .btn,[data-style="manga"] .mchip,[data-style="manga"] .pre,[data-style="manga"] .comps select{border:2px solid var(--ink);border-radius:0;box-shadow:2px 2px 0 var(--ink);background:var(--card)}
+[data-style="manga"] .btn:hover,[data-style="manga"] .mchip:hover,[data-style="manga"] .pre:hover{background:var(--warm)}
+[data-style="manga"] .btn:active{transform:translate(2px,2px);box-shadow:none}
+[data-style="manga"] .btn[aria-pressed="true"],[data-style="manga"] .btn[aria-checked="true"],[data-style="manga"] .mchip[aria-checked="true"]{background:var(--ink);color:var(--card)}
+[data-style="manga"] .pre[aria-pressed="true"]{background:var(--hot);border-color:var(--ink);color:var(--on-accent)}
+[data-style="manga"] .cchip{border:2px solid var(--ink)}
+[data-style="manga"] .cchip[aria-checked="true"]{background:var(--warm);box-shadow:none}
+[data-style="manga"] .view{border:3px solid var(--ink);border-radius:0;box-shadow:none}
+[data-style="manga"] .view::after{box-shadow:none}
+[data-style="manga"] .pill{border:2px solid var(--ink);border-radius:999px;box-shadow:none;padding:6px 12px}
+[data-style="manga"] .ov-tr{border:2px solid var(--ink);border-radius:0;box-shadow:3px 3px 0 var(--ink)}
+[data-style="manga"] .chipnote{background:var(--hot);border:2px solid var(--ink)}
+[data-style="manga"] .clockTag{background:var(--warm);color:var(--ink);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink)}
+[data-style="manga"] .ov-hint{background:var(--card);padding:3px 6px;border:1.5px solid var(--ink)}
+[data-style="manga"] .pick-card{border:2px solid var(--ink);border-left-width:6px;border-radius:0;box-shadow:3px 3px 0 var(--ink)}
+[data-style="manga"] .timeline{background:var(--card);border:2px solid var(--ink);border-radius:0;box-shadow:none}
+[data-style="manga"] .reading,[data-style="manga"] .reading:first-child{border-color:var(--ink-3)}
+[data-style="manga"] .formula{background:var(--card-2);border:2px solid var(--ink);border-radius:0}
+[data-style="manga"] .bar{border-radius:0;box-shadow:inset 0 0 0 2px var(--ink);height:12px}
+[data-style="manga"] .bar i{background:repeating-linear-gradient(-45deg,var(--hot) 0 5px,#B81C13 5px 7px)}
+[data-style="manga"] .notes{border-top:3px solid var(--ink)}
+[data-style="manga"] .myth{border-top:2px dashed var(--ink)}
+
 @media (max-width:1180px){ .stats{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (max-width:960px){
   .board{grid-template-columns:minmax(0,1fr);grid-template-areas:"scene" "thermo" "stats" "time" "kelvin" "ladder"}
@@ -223,11 +282,17 @@ h3{margin:0}
 
 <div class="wrap">
   <header class="top">
+    <span class="burst" aria-hidden="true"></span>
     <div>
-      <p class="eyebrow">Detection-dog science, cut from paper</p>
+      <p class="eyebrow">Detection-dog science<span class="paperOnly">, cut from paper</span></p>
       <h1>Scent Room</h1>
     </div>
     <p class="lede">An explosive or narcotic training aid is always losing molecules to the air, and temperature and time decide how much. Pick a material, warm the room, open the window, run the clock, or look inside the tin to see which molecules break free.</p>
+    <div class="look" role="radiogroup" aria-label="Drawing style" id="lookGrp">
+      <span>Style</span>
+      <button class="btn" role="radio" aria-checked="true" data-look="manga">Manga</button>
+      <button class="btn" role="radio" aria-checked="false" data-look="paper">Paper</button>
+    </div>
   </header>
 
   <main class="board">
@@ -393,6 +458,10 @@ const MAXB=3000, BASE=10, MAXRATE=300, PST=0.35, KDES0=0.01, BR=0.038;
 const VROOM=RX*RY*RZ, AAID=0.005, KM=3;
 const LT0=Math.log10(1/60), LT1=Math.log10(24);
 const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let look='manga';
+try{ const s=localStorage.getItem('scentroom-look'); if(s==='paper'||s==='manga') look=s; }catch(e){}
+document.documentElement.dataset.style=look;
+const isManga=()=>look==='manga';
 
 const COMP={
   tnt:{name:'TNT',P25:9.3e-4,dH:100.2e3,mp:80.4,color:'#E0A12B'},
@@ -513,8 +582,9 @@ function readTheme(){
   const cs=getComputedStyle(document.documentElement), g=(n,f)=>cs.getPropertyValue(n).trim()||f;
   return {bg:g('--scene-bg','#DCE3E6'),floor:g('--scene-floor','#F3EEE3'),floor2:g('--scene-floor-2','#E9E2D3'),wallA:g('--scene-wall-a','#EEF1F2'),wallB:g('--scene-wall-b','#F4ECDF'),
     base:g('--scene-base','#C7A677'),pencil:g('--scene-pencil','#5A6670'),door:g('--scene-door','#8C6A4A'),arrow:g('--scene-arrow','#FFFFFF'),
-    ink:g('--ink','#1E2A33'),ink2:g('--ink-2','#4F5E69'),ink3:g('--ink-3','#86939D'),line:g('--line','#C8CFD4'),card:g('--card','#FBFAF6'),card2:g('--card-2','#EDEAE2'),
-    tag:g('--tag','#D6448F'),hot:g('--hot','#D6412A'),dark:matchMedia('(prefers-color-scheme: dark)').matches&&document.documentElement.dataset.theme!=='light'||document.documentElement.dataset.theme==='dark'};
+    ink:g('--ink','#1E2A33'),ink2:g('--ink-2','#4F5E69'),ink3:g('--ink-3','#86939D'),line:g('--grid','#C8CFD4'),card:g('--card','#FBFAF6'),card2:g('--card-2','#EDEAE2'),
+    tag:g('--tag','#D6448F'),hot:g('--hot','#D6412A'),manga:isManga(),
+    dark:!isManga()&&(matchMedia('(prefers-color-scheme: dark)').matches&&document.documentElement.dataset.theme!=='light'||document.documentElement.dataset.theme==='dark')};
 }
 theme=readTheme();
 
@@ -544,6 +614,87 @@ if(has3D){
   const _m=new THREE.Matrix4(), _p=new THREE.Vector3(), _p2=new THREE.Vector3(), _q=new THREE.Quaternion(), _q2=new THREE.Quaternion(), _s=new THREE.Vector3(), _e=new THREE.Euler(), _c=new THREE.Color(), _Y=new THREE.Vector3(0,1,0), _X=new THREE.Vector3(1,0,0);
   const g3=()=>(Math.random()+Math.random()+Math.random()-1.5)*2;
 
+  /* ====================== MANGA INK ======================
+     Cel shading (toon materials with a 3-step ramp), screentone dots wherever a surface
+     falls into shadow, and black ink outlines found by edge-detecting a normal + depth pass. */
+  const ink=(function(){
+    const ramp=new THREE.DataTexture(new Uint8Array([88,88,88,170,170,170,255,255,255]),3,1,THREE.RGBFormat);
+    ramp.minFilter=ramp.magFilter=THREE.NearestFilter; ramp.generateMipmaps=false; ramp.needsUpdate=true;
+    const U={uTone:{value:5},uToneT:{value:0.9},uToneK:{value:1.1}};
+    function tone(sh){
+      Object.assign(sh.uniforms,U);
+      sh.fragmentShader=sh.fragmentShader.replace('void main() {','uniform float uTone; uniform float uToneT; uniform float uToneK;\nvoid main() {')
+        .replace('gl_FragColor = vec4( outgoingLight, diffuseColor.a );',`
+          float baseL=max(dot(diffuseColor.rgb,vec3(.299,.587,.114)),.03);
+          float lum=dot(outgoingLight,vec3(.299,.587,.114))/baseL;
+          vec2 tq=mat2(.7071,-.7071,.7071,.7071)*(gl_FragCoord.xy/uTone);
+          float tdist=length(fract(tq)-.5);
+          float trad=clamp((uToneT-lum)*uToneK,0.,.5);
+          float tdot=1.-smoothstep(trad-.08,trad+.08,tdist);
+          outgoingLight*=1.-tdot*.62;
+          gl_FragColor = vec4( outgoingLight, diffuseColor.a );`);
+    }
+    const plain=new Set();
+    function toonOf(std){
+      if(std.userData.toon) return std.userData.toon;
+      const t=new THREE.MeshToonMaterial({gradientMap:ramp,transparent:std.transparent,opacity:std.opacity,side:std.side,depthWrite:std.depthWrite});
+      t.flatShading=std.flatShading; t.color=std.color; t.map=plain.has(std.map)?null:std.map; t.onBeforeCompile=tone; t.customProgramCacheKey=()=>'tone';
+      std.userData.toon=t; return t;
+    }
+    function stylize(scene,on){
+      scene.traverse(o=>{ if(!o.isMesh) return; const std=o.userData.std||o.material; if(!std.isMeshStandardMaterial) return; o.userData.std=std; o.material=on?toonOf(std):std; });
+      scene.userData.look=on; scene.userData.dirty=false;
+    }
+    function dispose(m){ const std=m.userData.std||m.material; if(std.userData.toon) std.userData.toon.dispose(); std.dispose(); }
+
+    const size=new THREE.Vector2(), normalMat=new THREE.MeshNormalMaterial();
+    let rt=null;
+    const edgeMat=new THREE.ShaderMaterial({
+      uniforms:{tN:{value:null},tD:{value:null},uRes:{value:new THREE.Vector2(1,1)},uNear:{value:.1},uFar:{value:100},uThick:{value:1.5},uInk:{value:new THREE.Color('#121316')}},
+      vertexShader:'varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.,1.); }',
+      fragmentShader:`uniform sampler2D tN; uniform sampler2D tD; uniform vec2 uRes; uniform float uNear; uniform float uFar; uniform float uThick; uniform vec3 uInk; varying vec2 vUv;
+        float lz(vec2 uv){ float z=texture2D(tD,uv).x*2.-1.; return 2.*uNear*uFar/(uFar+uNear-z*(uFar-uNear)); }
+        vec3 nn(vec2 uv){ return texture2D(tN,uv).xyz*2.-1.; }
+        void main(){
+          vec2 dx=vec2(uThick/uRes.x,0.), dy=vec2(0.,uThick/uRes.y);
+          float c=lz(vUv);
+          float de=(abs(lz(vUv-dx)+lz(vUv+dx)-2.*c)+abs(lz(vUv-dy)+lz(vUv+dy)-2.*c))/c;
+          vec3 n=nn(vUv);
+          float nd=max(max(1.-dot(n,nn(vUv-dx)),1.-dot(n,nn(vUv+dx))),max(1.-dot(n,nn(vUv-dy)),1.-dot(n,nn(vUv+dy))));
+          float e=max(smoothstep(.012,.035,de),smoothstep(.22,.42,nd));
+          gl_FragColor=vec4(uInk,e);
+        }`,
+      transparent:true,depthTest:false,depthWrite:false});
+    const qScene=new THREE.Scene(), qCam=new THREE.OrthographicCamera(-1,1,1,-1,0,1), quad=new THREE.Mesh(new THREE.PlaneGeometry(2,2),edgeMat);
+    quad.frustumCulled=false; qScene.add(quad);
+    function ensureRT(){
+      renderer.getDrawingBufferSize(size);
+      if(rt&&rt.width===size.x&&rt.height===size.y) return;
+      if(rt){ rt.depthTexture.dispose(); rt.dispose(); }
+      rt=new THREE.WebGLRenderTarget(size.x,size.y,{minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter});
+      rt.depthTexture=new THREE.DepthTexture(size.x,size.y); rt.depthTexture.type=THREE.UnsignedIntType;
+    }
+    const hide=[], clearWas=new THREE.Color();
+    function render(scene,camera){
+      if(scene.userData.look!==true||scene.userData.dirty) stylize(scene,true);
+      ensureRT(); const pr=renderer.getPixelRatio(); U.uTone.value=4.2*pr;
+      // pass 1: view-space normals + depth, without lines, sprites or overlays
+      hide.length=0; scene.traverse(o=>{ if(o.visible&&(o.isLine||o.isSprite||o.userData.noInk)){ hide.push(o); o.visible=false; } });
+      const bg=scene.background; scene.background=null; scene.overrideMaterial=normalMat; renderer.shadowMap.autoUpdate=false;
+      renderer.getClearColor(clearWas); const alphaWas=renderer.getClearAlpha();
+      renderer.setRenderTarget(rt); renderer.setClearColor(0x8080ff,1); renderer.render(scene,camera);
+      renderer.setRenderTarget(null); renderer.setClearColor(clearWas,alphaWas); scene.overrideMaterial=null; scene.background=bg; renderer.shadowMap.autoUpdate=true;
+      for(const o of hide) o.visible=true;
+      // pass 2: the cel-shaded colour image
+      renderer.render(scene,camera);
+      // pass 3: ink lines on top
+      const u=edgeMat.uniforms; u.tN.value=rt.texture; u.tD.value=rt.depthTexture; u.uRes.value.copy(size); u.uNear.value=camera.near; u.uFar.value=camera.far; u.uThick.value=Math.max(1,1.15*pr);
+      renderer.autoClear=false; renderer.render(qScene,qCam); renderer.autoClear=true;
+    }
+    return {stylize,render,dispose,plain,U};
+  })();
+  ink.plain.add(paperTex); ink.plain.add(smallTex);
+
   /* ====================== ROOM ====================== */
   const room=(function(){
     const scene=new THREE.Scene();
@@ -568,8 +719,8 @@ if(has3D){
       const g=floorCanvas.getContext('2d'), s=100, pc=paperCanvas(256);
       for(let i=0;i<12;i++) for(let j=0;j<9;j++){
         g.fillStyle=(i+j)%2?theme.floor:theme.floor2; g.fillRect(i*s,j*s,s,s);
-        g.globalAlpha=.55; g.globalCompositeOperation='multiply'; g.drawImage(pc,(i*37)%128,(j*53)%128,128,128,i*s,j*s,s,s); g.globalCompositeOperation='source-over'; g.globalAlpha=1;
-        g.strokeStyle='rgba(60,50,40,.16)'; g.lineWidth=1.5; g.strokeRect(i*s+.75,j*s+.75,s-1.5,s-1.5);
+        if(!theme.manga){ g.globalAlpha=.55; g.globalCompositeOperation='multiply'; g.drawImage(pc,(i*37)%128,(j*53)%128,128,128,i*s,j*s,s,s); g.globalCompositeOperation='source-over'; g.globalAlpha=1; }
+        g.strokeStyle=theme.manga?'rgba(18,19,22,.42)':'rgba(60,50,40,.16)'; g.lineWidth=theme.manga?2.2:1.5; g.strokeRect(i*s+.75,j*s+.75,s-1.5,s-1.5);
       }
       const gr=g.createLinearGradient(0,0,0,70); gr.addColorStop(0,'rgba(40,30,20,.22)'); gr.addColorStop(1,'rgba(40,30,20,0)'); g.fillStyle=gr; g.fillRect(0,0,1200,70);
       const gl=g.createLinearGradient(0,0,70,0); gl.addColorStop(0,'rgba(40,30,20,.22)'); gl.addColorStop(1,'rgba(40,30,20,0)'); g.fillStyle=gl; g.fillRect(0,0,70,880);
@@ -738,6 +889,46 @@ if(has3D){
       ribbons.forEach(r=>r.visible=air.heat); matRad.color.set(air.heat?'#F2B08A':'#EDEBE6');
     }
 
+    /* manga speed lines: short ink strokes carried along the same air field as the beads */
+    const NSTREAK=64, streaks=new THREE.InstancedMesh(new THREE.BoxGeometry(1,0.01,0.01),new THREE.MeshBasicMaterial({color:'#121316'}),NSTREAK);
+    streaks.userData.noInk=true; streaks.frustumCulled=false; streaks.instanceMatrix.setUsage(THREE.DynamicDrawUsage); streaks.visible=false; scene.add(streaks);
+    const SK=Array.from({length:NSTREAK},()=>({p:new THREE.Vector3(),age:1,life:0}));
+    function seedStreak(s){
+      for(let t=0;t<14;t++){ s.p.set((Math.random()-.5)*RX*.94,0.12+Math.random()*(RY-0.24),(Math.random()-.5)*RZ*.94); airSteady(s.p.x,s.p.y,s.p.z,_v); if(Math.hypot(_v[0],_v[1],_v[2])>0.024) break; }
+      s.age=0; s.life=0.5+Math.random()*0.8;
+    }
+    function stepStreaks(dt){
+      const on=theme.manga&&(air.win||air.door||air.heat); streaks.visible=on; if(!on) return;
+      for(let i=0;i<NSTREAK;i++){ const s=SK[i]; s.age+=dt; if(s.age>s.life) seedStreak(s);
+        airSteady(s.p.x,s.p.y,s.p.z,_v); const sp=Math.hypot(_v[0],_v[1],_v[2]);
+        s.p.x+=_v[0]*dt*SPEED*1.6; s.p.y+=_v[1]*dt*SPEED*1.6; s.p.z+=_v[2]*dt*SPEED*1.6;
+        if(sp<0.014){ _m.makeScale(0,0,0); streaks.setMatrixAt(i,_m); continue; }
+        _d.set(_v[0],_v[1],_v[2]).normalize(); _q.setFromUnitVectors(_X,_d);
+        const L=clamp(sp*7,0.18,0.7)*Math.sin(Math.PI*clamp(s.age/s.life,0,1));
+        _m.compose(s.p,_q,_s.set(L,1,1)); streaks.setMatrixAt(i,_m); }
+      streaks.instanceMatrix.needsUpdate=true;
+    }
+
+    /* manga sound effects that pop in when the window, door or heater is switched on */
+    function sfxSprite(text,col,rot){
+      const c=document.createElement('canvas'); c.width=640; c.height=220; const tx=new THREE.CanvasTexture(c);
+      const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:tx,depthTest:false,transparent:true})); sp.renderOrder=10; sp.visible=false; scene.add(sp);
+      sp.userData.pop=0;
+      sp.userData.draw=()=>{ const g=c.getContext('2d'); g.clearRect(0,0,640,220); g.save(); g.translate(320,112); g.rotate(rot);
+        g.font='138px Bangers, Impact, "Arial Black", sans-serif'; g.textAlign='center'; g.textBaseline='middle'; g.lineJoin='round';
+        g.lineWidth=26; g.strokeStyle='#121316'; g.strokeText(text,6,8); g.fillStyle='#121316'; g.fillText(text,6,8);
+        g.lineWidth=20; g.strokeStyle='#121316'; g.strokeText(text,0,0); g.fillStyle=col; g.fillText(text,0,0); g.restore(); tx.needsUpdate=true; };
+      sp.userData.draw(); return sp;
+    }
+    const SFX={win:sfxSprite('FWOOSH!','#FFD21F',-0.1),door:sfxSprite('SWISH!','#FFFFFF',0.12),heat:sfxSprite('HMMMM','#FF8A3D',-0.06)};
+    SFX.win.position.set(WIN.x+0.2,WIN.y1+0.42,-RZ/2+0.4); SFX.door.position.set(-RX/2+0.3,DOOR.h+0.32,DOOR.z+0.2); SFX.heat.position.set(-RX/2+0.35,1.5,-1.0);
+    function stepSfx(dt,tt){
+      for(const k in SFX){ const sp=SFX[k], u=sp.userData, want=theme.manga&&air[k]?1:0;
+        u.pop+=(want-u.pop)*(1-Math.exp(-dt*(want?7:12))); sp.visible=u.pop>0.02;
+        const b=u.pop<0.98&&want?1+0.35*Math.sin(u.pop*Math.PI):1, s=u.pop*b*(1+0.04*Math.sin(tt*5+k.length)); sp.scale.set(1.6*s,0.55*s,1); }
+    }
+    function drawSfx(){ for(const k in SFX) SFX[k].userData.draw(); }
+
     /* beads */
     const BP=new Float32Array(MAXB*3), BS=new Int8Array(MAXB); let nextB=0, emitAcc=0, simT=0, nSrc=0; let refSrc=0;
     const beadMesh=new THREE.InstancedMesh(new THREE.IcosahedronGeometry(BR,0),new THREE.MeshStandardMaterial({color:0xffffff,roughness:.85,metalness:0,flatShading:true,map:smallTex}),MAXB);
@@ -788,6 +979,7 @@ if(has3D){
       const sway=air.win?(air.door?0.22:0.1):0.015, tt=performance.now()/1000;
       curtL.rotation.x=sway*Math.sin(tt*1.7)+sway*0.8; curtR.rotation.x=sway*Math.sin(tt*1.9+1)+sway*0.8;
       if(air.heat) ribbons.forEach((r,i)=>{ r.rotation.y=Math.sin(tt*3+i)*0.6; r.position.y=1.0+0.08*Math.sin(tt*2+i); });
+      stepStreaks(dt); stepSfx(dt,tt);
     }
     const _q3=new THREE.Quaternion();
     function draw(){
@@ -805,8 +997,11 @@ if(has3D){
     const bandCanvas=document.createElement('canvas'); bandCanvas.width=FW; bandCanvas.height=FH; const bctx=bandCanvas.getContext('2d');
     const mapTex=new THREE.CanvasTexture(mapCanvas); mapTex.anisotropy=8;
     const mapMesh=new THREE.Mesh(new THREE.PlaneGeometry(RX,RZ),new THREE.MeshStandardMaterial({map:mapTex,transparent:true,depthWrite:false,roughness:1,metalness:0}));
-    mapMesh.rotation.x=-Math.PI/2; mapMesh.position.y=0.014; mapMesh.receiveShadow=true; mapMesh.renderOrder=2; scene.add(mapMesh);
+    mapMesh.rotation.x=-Math.PI/2; mapMesh.position.y=0.014; mapMesh.receiveShadow=true; mapMesh.renderOrder=2; mapMesh.userData.noInk=true; scene.add(mapMesh);
+    const inkCanvas=document.createElement('canvas'); inkCanvas.width=FW; inkCanvas.height=FH; const ictx=inkCanvas.getContext('2d');
+    function dotPattern(r){ const c=document.createElement('canvas'); c.width=c.height=4; const g=c.getContext('2d'); g.fillStyle='#000'; g.beginPath(); g.arc(2,2,r,0,6.283); g.fill(); return bctx.createPattern(c,'repeat'); }
     const BANDS=[{t:-5,c:[63,124,196]},{t:-4,c:[47,163,154]},{t:-3,c:[239,180,47]},{t:-2,c:[231,112,46]},{t:-1,c:[200,48,44]}];
+    BANDS[0].dots=dotPattern(1.0); BANDS[1].dots=dotPattern(1.45);
     const fld=new Float32Array(MX*MZ), tmp=new Float32Array(MX*MZ), fine=new Float32Array(FW*FH), paperGrain=paperCanvas(256);
     let lastBg=0;
     function updateMap(){
@@ -826,9 +1021,17 @@ if(has3D){
         const img=bctx.createImageData(FW,FH), d=img.data; let any=false;
         for(let p=0;p<FW*FH;p++){ if(fine[p]>=b.t){ d[p*4]=b.c[0]; d[p*4+1]=b.c[1]; d[p*4+2]=b.c[2]; d[p*4+3]=225; any=true; } }
         if(!any) continue; bctx.putImageData(img,0,0);
-        g.save(); g.shadowColor='rgba(20,15,10,.45)'; g.shadowBlur=5; g.shadowOffsetY=3; g.drawImage(bandCanvas,0,0,FW*2,FH*2); g.restore();
+        if(theme.manga){
+          // ink a hard outline round each band; the two faintest bands become screentone dots so the floor shows through
+          ictx.globalCompositeOperation='source-over'; ictx.clearRect(0,0,FW,FH);
+          for(const [ox,oy] of [[-1.3,0],[1.3,0],[0,-1.3],[0,1.3]]) ictx.drawImage(bandCanvas,ox,oy);
+          ictx.globalCompositeOperation='source-in'; ictx.fillStyle='#121316'; ictx.fillRect(0,0,FW,FH);
+          ictx.globalCompositeOperation='destination-out'; ictx.drawImage(bandCanvas,0,0); ictx.globalCompositeOperation='source-over';
+          if(b.dots){ bctx.globalCompositeOperation='destination-in'; bctx.fillStyle=b.dots; bctx.fillRect(0,0,FW,FH); bctx.globalCompositeOperation='source-over'; }
+          g.drawImage(bandCanvas,0,0,FW*2,FH*2); g.drawImage(inkCanvas,0,0,FW*2,FH*2);
+        } else { g.save(); g.shadowColor='rgba(20,15,10,.45)'; g.shadowBlur=5; g.shadowOffsetY=3; g.drawImage(bandCanvas,0,0,FW*2,FH*2); g.restore(); }
       }
-      g.save(); g.globalCompositeOperation='source-atop'; g.globalAlpha=.35; g.drawImage(paperGrain,0,0,FW*2,FH*2); g.restore();
+      if(!theme.manga){ g.save(); g.globalCompositeOperation='source-atop'; g.globalAlpha=.35; g.drawImage(paperGrain,0,0,FW*2,FH*2); g.restore(); }
       mapTex.needsUpdate=true;
     }
 
@@ -839,8 +1042,9 @@ if(has3D){
       matWallA.color.set(theme.wallA); matWallB.color.set(theme.wallB); matBase.color.set(theme.base); matDoor.color.set(theme.door); matArrow.color.set(theme.arrow);
       matTent.color.set(theme.floor); matTentB.color.set(theme.floor); edgeMat.color.set(theme.pencil); outline.material.color.set(theme.pencil); ghost.material.color.set(theme.pencil);
       sun.color.set(theme.dark?'#9DB4E0':'#FFE2B0'); sun.intensity=theme.dark?0.55:1.0;
+      edgeMat.visible=!theme.manga;
     }
-    return {scene,camera,cam,step,draw,updateMap,layoutArrows,setBeadColors,drawTent,clear,prewarm,applyTheme,
+    return {scene,camera,cam,step,draw,updateMap,layoutArrows,setBeadColors,drawTent,drawSfx,clear,prewarm,applyTheme,
       setAid(on){ aid.visible=on; ghost.visible=!on; }, get lastBg(){return lastBg;}};
   })();
 
@@ -884,7 +1088,8 @@ if(has3D){
 
     function build(){
       const mat=MAT(), comps=mat.comps.filter(k=>MOLS[k]);
-      Object.values(meshes).forEach(m=>{ scene.remove(m); m.material.dispose(); }); if(bondMesh){ scene.remove(bondMesh); bondMesh.material.dispose(); }
+      Object.values(meshes).forEach(m=>{ scene.remove(m); ink.dispose(m); }); if(bondMesh){ scene.remove(bondMesh); ink.dispose(bondMesh); }
+      scene.userData.dirty=true;
       const P=geoOf(mat.parent), s=2*P.rb*0.86, k=9.5/(LXN*s);
       // atom/bond capacity
       const maxEl={C:0,H:0,N:0,O:0}; let maxB=0;
@@ -1000,14 +1205,16 @@ if(has3D){
   new ResizeObserver(resize).observe(viewEl);
 
   R3={room,tin,placeCamera,resize,
-    render(){ const v=active(); renderer.render(v.scene,v.camera); },
+    render(){ const v=active();
+      if(theme.manga) ink.render(v.scene,v.camera);
+      else { if(v.scene.userData.look!==false||v.scene.userData.dirty) ink.stylize(v.scene,false); renderer.render(v.scene,v.camera); } },
     setMaterial(){ room.setBeadColors(); room.drawTent(); room.clear(); room.prewarm(8); tin.build(); },
     setCompound(){ room.setBeadColors(); room.clear(); room.prewarm(8); },
     applyTheme(){ room.applyTheme(); tin.applyTheme(); },
     zoom(f){ const c=active().cam; c.zoom=clamp(c.zoom*f,0.45,1.6); placeCamera(); },
     resetView(){ const c=active().cam; c.yaw=c.YAW0; c.pitch=c.PITCH0; c.zoom=1; placeCamera(); }
   };
-  room.applyTheme(); room.setBeadColors(); room.drawTent(); room.layoutArrows(); tin.build(); resize(); room.prewarm(10); room.updateMap();
+  room.applyTheme(); room.setBeadColors(); room.drawTent(); room.layoutArrows(); tin.applyTheme(); tin.build(); resize(); room.prewarm(10); room.updateMap();
 }
 
 /* ================= thermometer ================= */
@@ -1241,7 +1448,14 @@ function drawTime(){
 function onTheme(){ theme=readTheme(); if(R3) R3.applyTheme(); chartDirty=timeDirty=true; lastUiT=-1; }
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',onTheme);
 new MutationObserver(onTheme).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>{ buildThermo(); chartDirty=timeDirty=true; if(R3){ R3.room.drawTent(); R3.tin.build(); } });
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>{ buildThermo(); chartDirty=timeDirty=true; if(R3){ R3.room.drawTent(); R3.room.drawSfx(); R3.tin.build(); } });
+function setLook(l){
+  look=l; document.documentElement.dataset.style=l;
+  try{ localStorage.setItem('scentroom-look',l); }catch(e){}
+  document.querySelectorAll('#lookGrp [data-look]').forEach(b=>b.setAttribute('aria-checked',b.dataset.look===l));
+  onTheme();
+}
+document.querySelectorAll('#lookGrp [data-look]').forEach(b=>{ b.setAttribute('aria-checked',b.dataset.look===look); b.addEventListener('click',()=>{ if(b.dataset.look!==look) setLook(b.dataset.look); }); });
 
 /* ================= loop ================= */
 let last=performance.now(), chartAcc=0, mapAcc=0, legAcc=0;
@@ -1264,5 +1478,3 @@ renderTray(); renderComps(); setView('room'); buildThermo(); updateUI(); drawLad
 requestAnimationFrame(frame);
 })();
 </script>
-
-</body></html>
